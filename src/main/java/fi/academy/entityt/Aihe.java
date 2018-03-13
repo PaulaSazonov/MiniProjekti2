@@ -13,6 +13,28 @@ public class Aihe {
     @OneToMany
     private List<Keskustelu> keskustelutAiheesta;
 
+    public Aihe() {
+    }
 
+    public Aihe(String aiheenNimi) {
+        this.aiheenNimi = aiheenNimi;
+        this.keskustelutAiheesta = keskustelutAiheesta;
+    }
+
+    public String getAiheenNimi() {
+        return aiheenNimi;
+    }
+
+    public void setAiheenNimi(String aiheenNimi) {
+        this.aiheenNimi = aiheenNimi;
+    }
+
+    public List<Keskustelu> getKeskustelutAiheesta() {
+        return keskustelutAiheesta;
+    }
+
+    public void setKeskustelutAiheesta(List<Keskustelu> keskustelutAiheesta) {
+        this.keskustelutAiheesta = keskustelutAiheesta;
+    }
 }
 

@@ -1,11 +1,14 @@
 package fi.academy.entityt;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
 
-@Entity
+
 public class Aihelista {
-    private List<Aihe> aihelista;
+
+    private List<Aihe> aihelista; // ei linkitystä, koska listaa vain olemassa olevat aihealueet
 
     public Aihelista() {
     }
