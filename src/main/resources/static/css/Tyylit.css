@@ -1,0 +1,31 @@
+h1 {
+    font-style: revert;
+    font-size: 200%;
+}
+
+body {
+    background: url("https://images.unsplash.com/photo-1500174857981-b769ffdc53ce");
+    background-size: cover;
+    padding-top: 50px;
+}
+
+.navbar {
+    background-color: rgba(10, 10, 10, 0.7);
+}
+
+.page-header {
+    font-size: 300%;
+    text-align: center;
+    margin-top: 0;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.container {
+    color: rgba(230, 230, 230, 0.95);
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px 40px;
+    background-color: rgba(10, 10, 10, 0.7);
+    border-radius: 5px;
+}

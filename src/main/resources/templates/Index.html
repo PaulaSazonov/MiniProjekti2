@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="fi" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head  th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
-    <title>Index</title>
+    <title>Sanonnat</title>
 </head>
 <body>
+<div th:replace="fragments/navi :: navbar"/>
 
-<!--<ul>-->
-    <!--<li th:each kayttaja : ${lista}>-->
-        <!--<p th:text="${kayttaja.tunnus}"></p>-->
-    <!--</li>-->
-<!--</ul>-->
+<!--Tähän omat koodit-->
 
-<div>
-    <p>Hello</p>
+<div class="container">
+    <h1>Ryhmä 3 foorumi</h1>
+    <div>
+        <p>Erittäin mielenkiintoista jutustelua</p>
+    </div>
 </div>
+
+<div class="container">
+    <div>
+        <p>Erittäin <strong>mielenkiintoista</strong> jutustelua <em>edelleenkin</em></p>
+    </div>
+</div>
+
+<!--Tähän omat koodit-->
 
 </body>
 </html>
