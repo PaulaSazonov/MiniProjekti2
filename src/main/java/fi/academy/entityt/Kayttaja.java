@@ -10,8 +10,8 @@ public class Kayttaja {
     private String tunnus;
     private String sahkoposti;
     private String salasana;
-//    @OneToMany
-//    private Viesti viesti;
+    @OneToMany
+    private Viesti viesti;
     private String rooli;
 
     public Kayttaja() {
@@ -21,6 +21,7 @@ public class Kayttaja {
         this.tunnus = tunnus;
         this.sahkoposti = sahkoposti;
         this.salasana = salasana;
+
     }
 
     public Kayttaja(String tunnus, String sahkoposti, String salasana, String rooli) {
@@ -55,13 +56,13 @@ public class Kayttaja {
         this.salasana = salasana;
     }
 
-//    public Viesti getViesti() {
-//        return viesti;
-//    }
-//
-//    public void setViesti(Viesti viesti) {
-//        this.viesti = viesti;
-//    }
+    public Viesti getViesti() {
+        return viesti;
+    }
+
+    public void setViesti(Viesti viesti) {
+        this.viesti = viesti;
+    }
 
     public String getRooli() {
         return rooli;
