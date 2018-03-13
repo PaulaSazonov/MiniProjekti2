@@ -21,17 +21,20 @@ public class MiniProjekti2Application {
         return (args) -> {
 
 
-            Aihe aihe = new Aihe("Kissa-aiheiset keskustelut");
-            Keskustelu keskustelu = new Keskustelu(aihe, "Keskustelun otsikko", "Keskustelun aloittaja", "Keskustelun aloittajan viesti plaa plaa plaa");
+            Aihe aihe1 = new Aihe("Kissan hoito");
+            Keskustelu keskustelu1 = new Keskustelu(aihe1, "Pitkäkarvaisen turkin hoito", "KissojenKaveri", "Kuinka usein harjaatte pitkäkarvaisten kissojenne turkkeja ja millaisia harjoja teillä on ollut käytössä? ");
+            Viesti viesti1 = new Viesti("PersialaisetRules", "Meillä on ollut käytössä Furminator-harja, voin suositella. Pyrimme harjaamaan turkkia ainakin kerran kuussa, keväällä karvanlähtöaikaan useammin", keskustelu1);
+            keskustelu1.lisaaViestiListaan(viesti1);
 
-            Viesti viesti1 = new Viesti("Kirjoittaja", "Viestiteksti plaa plaa plaa", keskustelu);
-            Viesti viesti2 = new Viesti("Kalle", "Tämä on kolmas teksti", keskustelu);
+            Aihe aihe2 = new Aihe("Kissan tarvikkeet ja varusteet");
+            Keskustelu keskustelu2 = new Keskustelu(aihe2, "Paras kissanvessa", "GrumpyCat", "Mikä on paras kissanvessa? Onko avoin vai katettu hyvä?");
+            Viesti viesti2 = new Viesti("Siamilainen", "Katettu, ehdottomasti. Pysyy hiekat ja hajut paremmin kurissa.", keskustelu2);
+            keskustelu2.lisaaViestiListaan(viesti2);
 
-            keskustelu.lisaaViestiListaan(viesti1);
-            keskustelu.lisaaViestiListaan(viesti2);
 
+            viestiRepo.saveAll(keskustelu1.getListaViesteista());
+            viestiRepo.saveAll(keskustelu2.getListaViesteista());
 
-            viestiRepo.saveAll(keskustelu.getListaViesteista());
         };
     }
 
