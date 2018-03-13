@@ -2,6 +2,7 @@ package fi.academy.entityt;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Keskustelu {
     @GeneratedValue
     private int id;
 
-    @ManyToOne // keskustelu voi kuulua vain yhteen aihealueeseen
+    @ManyToOne (cascade=CascadeType.ALL) // keskustelu voi kuulua vain yhteen aihealueeseen
     @JoinColumn
     private Aihe aihealueJohonKuuluu;
 
@@ -29,7 +30,7 @@ public class Keskustelu {
 
     public Keskustelu(Aihe aihealueJohonKuuluu, String keskustelunotsikko, String kirjoittaja, String teksti) {
         this.aihealueJohonKuuluu = aihealueJohonKuuluu;
-        this.listaViesteista = listaViesteista;
+        this.listaViesteista = new ArrayList<>();
 
         this.aikaleima = LocalDate.now();
         this.keskustelunotsikko = keskustelunotsikko;

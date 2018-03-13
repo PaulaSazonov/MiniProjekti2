@@ -14,7 +14,7 @@ public class Viesti {
     private String kirjoittaja;
     private String teksti;
 
-    @ManyToOne  // viesti voi kuulua vain yhteen keskusteluun
+    @ManyToOne (cascade= CascadeType.ALL)  // viesti voi kuulua vain yhteen keskusteluun
     @JoinColumn
     private Keskustelu keskusteluJohonViestiKuuluu;
 
