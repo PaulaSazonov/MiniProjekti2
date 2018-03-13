@@ -10,10 +10,8 @@ public class Viesti {
     @GeneratedValue
     private int id;
     private LocalDate aikaleima;
-
     private String kirjoittaja;
     private String teksti;
-
     @ManyToOne
     @JoinColumn
     private Keskustelu keskusteluJohonViestiKuuluu;

@@ -13,14 +13,12 @@ public class Keskustelu {
     @Id
     @GeneratedValue
     private int id;
-
     @ManyToOne // keskustelu voi kuulua vain yhteen aihealueeseen
     @JoinColumn
     private Aihe aihealueJohonKuuluu;
     @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
     // fetch = FetchType.EAGER) > määritetään metodeissa, että ei tule turhia hakuja
     private List<Viesti> listaViesteista;
-
     private LocalDate aikaleima;
     private String keskustelunotsikko;
     private String kirjoittaja;
