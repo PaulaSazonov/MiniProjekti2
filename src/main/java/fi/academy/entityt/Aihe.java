@@ -1,16 +1,18 @@
 
 package fi.academy.entityt;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Aihe {
     @Id
     private String aiheenNimi;
-    @OneToMany
+    @OneToMany(mappedBy = "aihealueJohonKuuluu", cascade = CascadeType.ALL)
     private List<Keskustelu> keskustelutAiheesta;
 
     public Aihe() {
@@ -18,7 +20,7 @@ public class Aihe {
 
     public Aihe(String aiheenNimi) {
         this.aiheenNimi = aiheenNimi;
-        this.keskustelutAiheesta = keskustelutAiheesta;
+        this.keskustelutAiheesta = new ArrayList<>();
     }
 
     public String getAiheenNimi() {
@@ -35,6 +37,10 @@ public class Aihe {
 
     public void setKeskustelutAiheesta(List<Keskustelu> keskustelutAiheesta) {
         this.keskustelutAiheesta = keskustelutAiheesta;
+    }
+
+    public void lisaaKeskusteluAiheenListaan(Keskustelu keskustelu) {
+        this.keskustelutAiheesta.add(keskustelu);
     }
 }
 

@@ -1,5 +1,7 @@
 package fi.academy.entityt;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,11 +14,10 @@ public class Keskustelu {
     @GeneratedValue
     private int id;
 
-    @ManyToOne (cascade=CascadeType.ALL) // keskustelu voi kuulua vain yhteen aihealueeseen
+    @ManyToOne // keskustelu voi kuulua vain yhteen aihealueeseen
     @JoinColumn
     private Aihe aihealueJohonKuuluu;
-
-    @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu")
+    @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
     // fetch = FetchType.EAGER) > määritetään metodeissa, että ei tule turhia hakuja
     private List<Viesti> listaViesteista;
 
