@@ -17,6 +17,7 @@ public class Viesti {
     private Keskustelu keskusteluJohonViestiKuuluu;
 
     public Viesti() {
+        this.aikaleima = LocalDateTime.now();
     }
 
     public Viesti(String kirjoittaja, String teksti, Keskustelu keskusteluJohonViestiKuuluu) {
