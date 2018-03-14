@@ -19,7 +19,8 @@ public class Keskustelu {
     @JoinColumn
     private Aihe aihealueJohonKuuluu;
     private String keskustelunotsikko;
-    @OneToOne(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Viesti aloitusviesti;
     @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
     // fetch = FetchType.EAGER) > määritetään metodeissa, että ei tule turhia hakuja
@@ -36,6 +37,7 @@ public class Keskustelu {
         this.keskustelunotsikko = keskustelunotsikko;
         this.aloitusviesti = aloitusviesti;
         this.kommentit = new ArrayList<>();
+//        this.kommentit.add(aloitusviesti);
 
     }
 
