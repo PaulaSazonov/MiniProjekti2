@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head  th:include="fragments/otsake :: head">
+    <meta charset="UTF-8"/>
+    <title>Haku</title>
+</head>
+<body>
+<div th:replace="fragments/navi :: navbar"/>
+
+<!--Tähän omat koodit-->
+
+<div class="container">
+    <h1>Hae hakusanalla:</h1>
+    <div>
+        <form th:action="@{/foorumi/hakutulos}" th:method="POST">
+            <input type="text" th:field="${hakusana}"/>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
