@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class KeskusteluKontrolleri {
@@ -30,11 +31,11 @@ public class KeskusteluKontrolleri {
 
     }
 
-//    @GetMapping("/foorumi/{aiheenNimi}/{id}")
-//    public String naytaYksiKeskustelu (@PathVariable ("aiheenNimi") String aiheenNimi, @PathVariable ("id") int id, Model model){
-//        List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-//        model.addAttribute("keskustelulista", keskustelulista);
-//        return "Keskustelut";
-//
-//    }
+    @GetMapping("/foorumi/{aiheenNimi}/{id}")
+    public String naytaYksiKeskustelu (@PathVariable ("aiheenNimi") String aiheenNimi, @PathVariable ("id") int id, Model model){
+        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
+        model.addAttribute("keskustelu", optkesk);
+        return "yksiKeskustelu";
+
+    }
 }
