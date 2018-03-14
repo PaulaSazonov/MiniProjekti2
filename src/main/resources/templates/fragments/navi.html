@@ -13,11 +13,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Ryhmä 3</a>
+            <a class="navbar-brand" href="/foorumi">Ryhmä 3</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li th:each="aihe : ${aiheet}"><a th:href="${aihe.aiheenNimi}" th:text="${aihe.aiheenNimi}"/></li>
+                <li th:each="aihe : ${aiheet}"><a th:href="'/foorumi/' + ${aihe.aiheenNimi}" th:text="${aihe.aiheenNimi}"/></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
