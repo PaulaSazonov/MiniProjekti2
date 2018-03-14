@@ -41,6 +41,11 @@ public class Keskustelu {
         listaViesteista.add(viesti);
     }
 
+    @Override
+    public String toString() {
+        return aihealueJohonKuuluu.getAiheenNimi() + ", " + keskustelunotsikko + "\n" + kirjoittaja + ", " + aikaleima + "\n" + teksti + "\n" + listaViesteista;
+    }
+
     public int getId() {
         return id;
     }

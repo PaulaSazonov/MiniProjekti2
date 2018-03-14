@@ -3,13 +3,15 @@ package fi.academy.entityt;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Viesti {
     @Id
     @GeneratedValue
     private int id;
-    private LocalDate aikaleima;
+    private LocalDateTime aikaleima;
     private String kirjoittaja;
     private String teksti;
     @ManyToOne
@@ -20,7 +22,7 @@ public class Viesti {
     }
 
     public Viesti(String kirjoittaja, String teksti, Keskustelu keskusteluJohonViestiKuuluu) {
-        this.aikaleima = LocalDate.now();
+        this.aikaleima = LocalDateTime.now();
         this.kirjoittaja = kirjoittaja;
         this.teksti = teksti;
         this.keskusteluJohonViestiKuuluu = keskusteluJohonViestiKuuluu;
@@ -34,11 +36,11 @@ public class Viesti {
         this.id = id;
     }
 
-    public LocalDate getAikaleima() {
+    public LocalDateTime getAikaleima() {
         return aikaleima;
     }
 
-    public void setAikaleima(LocalDate aikaleima) {
+    public void setAikaleima(LocalDateTime aikaleima) {
         this.aikaleima = aikaleima;
     }
 
@@ -64,6 +66,11 @@ public class Viesti {
 
     public void setKeskusteluJohonViestiKuuluu(Keskustelu keskusteluJohonViestiKuuluu) {
         this.keskusteluJohonViestiKuuluu = keskusteluJohonViestiKuuluu;
+    }
+
+    @Override
+    public String toString() {
+        return kirjoittaja + ", " + aikaleima + "\n" + teksti;
     }
 }
 
