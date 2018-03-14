@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
@@ -22,15 +23,15 @@ public class AiheKontrolleri {
         this.aiheRepo = aiheRepo;
     }
 
-    @GetMapping("/{id}")
-    public String näytäAihe(@PathVariable (name = "aiheenNimi") String aiheenNimi, Model model) {
-        Optional<Aihe> optionalAihe = aiheRepo.findById(aiheenNimi);
-        model.addAttribute("aihe", optionalAihe);
-        return "naytaaihe";
-
-
-
+    @GetMapping("/")
+    public String näytäAihe(Model model) {
+        return "index";
     }
 
+    @ModelAttribute
+    public void annaKaikille(Model model) {
+        Iterable<Aihe> optionalAihe = aiheRepo.findAll();
+        model.addAttribute("aiheet", optionalAihe);
+    }
 }
 

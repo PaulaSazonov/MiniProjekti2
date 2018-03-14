@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
@@ -17,9 +17,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="#">Yleinen</a></li>
-                <li><a href="#">Kissat</a></li>
-                <li><a href="#">Koirat</a></li>
+                <li th:each="aihe : ${aiheet}"><a th:href="${aihe.aiheenNimi}" th:text="${aihe.aiheenNimi}"/></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
