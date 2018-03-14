@@ -2,9 +2,7 @@
 package fi.academy.entityt;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Viesti {
@@ -26,6 +24,12 @@ public class Viesti {
         this.kirjoittaja = kirjoittaja;
         this.teksti = teksti;
         this.keskusteluJohonViestiKuuluu = keskusteluJohonViestiKuuluu;
+    }
+
+    public Viesti(String kirjoittaja, String teksti) {
+        this.aikaleima = LocalDateTime.now();
+        this.kirjoittaja = kirjoittaja;
+        this.teksti = teksti;
     }
 
     public int getId() {

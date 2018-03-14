@@ -1,9 +1,11 @@
 package fi.academy.entityt;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,34 +18,34 @@ public class Keskustelu {
     @ManyToOne // keskustelu voi kuulua vain yhteen aihealueeseen
     @JoinColumn
     private Aihe aihealueJohonKuuluu;
+    private String keskustelunotsikko;
+    @OneToOne(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
+    private Viesti aloitusviesti;
     @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
     // fetch = FetchType.EAGER) > määritetään metodeissa, että ei tule turhia hakuja
-    private List<Viesti> listaViesteista;
-    private LocalDate aikaleima;
-    private String keskustelunotsikko;
-    private String kirjoittaja;
-    private String teksti;
+    private List<Viesti> kommentit;
+    
+   
+
 
     public Keskustelu() {
     }
 
-    public Keskustelu(Aihe aihealueJohonKuuluu, String keskustelunotsikko, String kirjoittaja, String teksti) {
+    public Keskustelu(Aihe aihealueJohonKuuluu, String keskustelunotsikko, Viesti aloitusviesti) {
         this.aihealueJohonKuuluu = aihealueJohonKuuluu;
-        this.listaViesteista = new ArrayList<>();
-
-        this.aikaleima = LocalDate.now();
         this.keskustelunotsikko = keskustelunotsikko;
-        this.kirjoittaja = kirjoittaja;
-        this.teksti = teksti;
+        this.aloitusviesti = aloitusviesti;
+        this.kommentit = new ArrayList<>();
+
     }
 
     public void lisaaViestiListaan(Viesti viesti) {
-        listaViesteista.add(viesti);
+        kommentit.add(viesti);
     }
 
     @Override
     public String toString() {
-        return aihealueJohonKuuluu.getAiheenNimi() + ", " + keskustelunotsikko + "\n" + kirjoittaja + ", " + aikaleima + "\n" + teksti + "\n" + listaViesteista;
+        return aihealueJohonKuuluu.getAiheenNimi() + ", " + keskustelunotsikko + "\n" + aloitusviesti + "\n" + kommentit;
     }
 
     public int getId() {
@@ -62,22 +64,6 @@ public class Keskustelu {
         this.aihealueJohonKuuluu = aihealueJohonKuuluu;
     }
 
-    public List<Viesti> getListaViesteista() {
-        return listaViesteista;
-    }
-
-    public void setListaViesteista(List<Viesti> listaViesteista) {
-        this.listaViesteista = listaViesteista;
-    }
-
-    public LocalDate getAikaleima() {
-        return aikaleima;
-    }
-
-    public void setAikaleima(LocalDate aikaleima) {
-        this.aikaleima = aikaleima;
-    }
-
     public String getKeskustelunotsikko() {
         return keskustelunotsikko;
     }
@@ -86,19 +72,25 @@ public class Keskustelu {
         this.keskustelunotsikko = keskustelunotsikko;
     }
 
-    public String getKirjoittaja() {
-        return kirjoittaja;
+    public Viesti getAloitusviesti() {
+        return aloitusviesti;
     }
 
-    public void setKirjoittaja(String kirjoittaja) {
-        this.kirjoittaja = kirjoittaja;
+    public void setAloitusviesti(Viesti aloitusviesti) {
+        this.aloitusviesti = aloitusviesti;
     }
 
-    public String getTeksti() {
-        return teksti;
+    public List<Viesti> getKommentit() {
+        return kommentit;
     }
 
-    public void setTeksti(String teksti) {
-        this.teksti = teksti;
+    public void setKommentit(List<Viesti> kommentit) {
+        this.kommentit = kommentit;
+    }
+
+    public String muotoiltuaikaleima (LocalDateTime aikaleima){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm.ss, dd.MM.yyyy");
+        String aika = aikaleima.format(formatter);
+        return aika;
     }
 }

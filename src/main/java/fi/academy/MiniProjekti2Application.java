@@ -30,7 +30,7 @@ public class MiniProjekti2Application {
             aiheRepo.save(aihe); // Koska CASCADE käytössä, ei tarvitse tallentaa viestejä ja keskusteluita erikseen repoon, vaan menevät aiheen tallennuksella
 
             // 1. KISSA-KESKUSTELU
-            Keskustelu keskustelu = new Keskustelu(aihe, "Pitkäkarvaisen turkin hoito", "KissojenKaveri", "Kuinka usein harjaatte pitkäkarvaisten kissojenne turkkeja ja millaisia harjoja teillä on ollut käytössä? ");
+            Keskustelu keskustelu = new Keskustelu(aihe, "Pitkäkarvaisen turkin hoito",new Viesti("KissojenKaveri", "Kuinka usein harjaatte pitkäkarvaisten kissojenne turkkeja ja millaisia harjoja teillä on ollut käytössä?"));
             aihe.lisaaKeskusteluAiheenListaan(keskustelu);
             Viesti viesti1 = new Viesti("PersialaisetRules", "Meillä on ollut käytössä Furminator-harja, voin suositella. Pyrimme harjaamaan turkkia ainakin kerran kuussa, keväällä karvanlähtöaikaan useammin", keskustelu);
             Viesti viesti2 = new Viesti("Toinen", "Toinen vastaus", keskustelu);
@@ -39,7 +39,7 @@ public class MiniProjekti2Application {
             keskusteluRepo.save(keskustelu); // Koska CASCADE käytössä, ei tarvitse tallentaa viestejä ja keskusteluita erikseen repoon, vaan menevät aiheen tallennuksella
 
             // 2. KISSA-KESKUSTELU
-            keskustelu = new Keskustelu(aihe, "Paras kissanvessa", "GrumpyCat", "Mikä on paras kissanvessa? Onko avoin vai katettu hyvä?");
+            keskustelu = new Keskustelu(aihe, "Paras kissanvessa", new Viesti("GrumpyCat", "Mikä on paras kissanvessa? Onko avoin vai katettu hyvä?"));
             viesti1 = new Viesti("Siamilainen", "Katettu, ehdottomasti. Pysyy hiekat ja hajut paremmin kurissa.", keskustelu);
             viesti2 = new Viesti("Toinen", "Toinen vastaus", keskustelu);
             keskustelu.lisaaViestiListaan(viesti1);
@@ -51,7 +51,7 @@ public class MiniProjekti2Application {
             aiheRepo.save(aihe);
 
             // 1. KOIRAVIESTI
-            keskustelu = new Keskustelu(aihe, "Koirani on ruma", "Pertti", "Hei. Onko teidän koiranne komeita?");
+            keskustelu = new Keskustelu(aihe, "Koirani on ruma", new Viesti("Pertti", "Hei. Onko teidän koiranne komeita?"));
             viesti1 = new Viesti("Koiraihminen", "Kaikki koirat ovat kauniita!", keskustelu);
             viesti2 = new Viesti("Ihmiskoira", "Minunkin koirani on komea", keskustelu);
             Viesti viesti3 = new Viesti("Sipulimies", "Koirani on kaunis kuin sipuli", keskustelu);
@@ -61,7 +61,7 @@ public class MiniProjekti2Application {
             keskusteluRepo.save(keskustelu);
 
             // 2. KOIRAVIESTI
-            keskustelu = new Keskustelu(aihe, "Osaatteko suositella ihmisille sopivaa koiranruokaa?", "Nälkäinen", "Olen huomannut, että koiranruoka on edullisempaa kuin ihmisen ruoka. Etsin siis suosituksia hyvästä ihmisille sopivasta koiranruoasta!");
+            keskustelu = new Keskustelu(aihe, "Osaatteko suositella ihmisille sopivaa koiranruokaa?", new Viesti("Nälkäinen", "Olen huomannut, että koiranruoka on edullisempaa kuin ihmisen ruoka. Etsin siis suosituksia hyvästä ihmisille sopivasta koiranruoasta!"));
             viesti1 = new Viesti("Kokkikoira", "Suosittelen luita", keskustelu);
             viesti2 = new Viesti("Pertti", "Ei ole Pedigren voittanutta!", keskustelu);
             viesti3 = new Viesti("Silja", "Hullu, syö mielummin kissanruokaa", keskustelu);

@@ -23,13 +23,6 @@ public class KeskusteluKontrolleri {
         this.aiheRepo = aiheRepo;
     }
 
-    @GetMapping("/foorumi/{aiheenNimi}")
-    public String naytaAiheenKeskustelut (@PathVariable ("aiheenNimi") String aiheenNimi, Model model){
-        List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        model.addAttribute("keskustelulista", keskustelulista);
-        return "keskustelut";
-
-    }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
     public String naytaYksiKeskustelu (@PathVariable ("aiheenNimi") String aiheenNimi, @PathVariable ("id") int id, Model model){
@@ -38,4 +31,24 @@ public class KeskusteluKontrolleri {
         return "yksiKeskustelu";
 
     }
+
+//    @GetMapping("/foorumi/haku")
+//    public String haekeskusteluista(Hakusana sana, Model model) {
+//        if (sana == null || sana.getHakusana() == null || sana.getHakusana().trim().isEmpty())
+//            return "redirect:keskustelukokoelmat";
+//
+//        model.addAttribute("otsikko", "Sanonnat (filtterillä)");
+//        model.addAttribute("sanonnat", sanonnat.getSanonnat(sana.getHakusana()));
+//        model.addAttribute("hakusana", sana.getHakusana());
+//        return "filtteroidyt";
+//    }
+//}
+//class Hakusana {
+//    private String hakusana;
+//    public String getHakusana() {
+//        return hakusana;
+//    }
+//    public void setHakusana(String hakusana) {
+//        this.hakusana = hakusana;
+//    }
 }
