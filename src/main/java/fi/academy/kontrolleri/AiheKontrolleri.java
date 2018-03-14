@@ -42,6 +42,7 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}")
     public String naytaAiheenKeskustelut (@PathVariable String aiheenNimi, Model model){
         List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+        model.addAttribute("aiheenNimi", aiheenNimi);
         model.addAttribute("keskustelulista", keskustelulista);
         return "keskustelukokoelmat";
     }
