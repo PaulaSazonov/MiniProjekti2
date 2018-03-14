@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/otsake :: head">
+    <meta charset="UTF-8"/>
+    <title>Sanonnat</title>
+</head>
+<body>
+<div th:replace="fragments/navi :: navbar"/>
+
+<!--Tähän omat koodit-->
+
+<div class="container">
+    <h1>Ryhmä 3 foorumi</h1>
+    <div>
+        <p>Alla voit luoda uuden keskustelu!</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <form th:action="@{/uusikeskustelu}" th:object="${lomake}" method="post">
+        <div><label th:text="'Viestiketjun otsikko:'" th:for="otsikko"/><input th:field="*{keskustelunotsikko}"/></div>
+        <div><label th:text="'Viestisi:'" th:for="teksti"/><textarea th:field="*{aloitusviesti.teksti}"/></div>
+        <div><label th:text="'Nimi:'" th:for="nimi"/> <input th:field="*{aloitusviesti.kirjoittaja}"/></div>
+        <button type="submit">Submit</button>
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{aihealueJohonKuuluu.aiheenNimi}"/>
+
+    </form>
+</div>
+
+
+<!--Tähän omat koodit-->
+
+</body>
+</html>

@@ -95,4 +95,5 @@ public class Keskustelu {
         String aika = aikaleima.format(formatter);
         return aika;
     }
+
 }

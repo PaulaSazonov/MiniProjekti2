@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fi" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
-<head  th:include="fragments/otsake :: head">
+<head th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
     <title>Keskustelut</title>
 </head>
@@ -16,6 +16,22 @@
 
 </div>
 
+<div class="container">
+
+    <form th:action="@{/uusikeskustelu}" th:object="${lomake}" method="post">
+
+        <!--<input type="hidden" th:field="*{aikaleima}"/>-->
+        <div><label th:text="'Nimi:'" th:for="nimi"/> <input th:field="*{kirjoittaja}"/></div>
+        <div><label th:text="'Viestisi:'" th:for="teksti"/><textarea th:field="*{teksti}"/></div>
+        <button type="submit">Submit</button>
+
+        <input type="hidden" th:field="*{id}"/>
+
+
+        <input type="hidden" th:field="*{keskusteluJohonViestiKuuluu.id}"/>
+
+    </form>
+</div>
 <!--Tähän omat koodit-->
 
 </body>

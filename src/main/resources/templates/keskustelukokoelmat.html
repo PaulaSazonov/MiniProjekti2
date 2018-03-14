@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fi" xmlns:th="http://www.thymeleaf.org">
-<head  th:include="fragments/otsake :: head">
+<head th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
     <title>Sanonnat</title>
 </head>
@@ -10,7 +10,7 @@
 <!--Tähän omat koodit-->
 
 <div class="container">
-    <h1 th:text="${aiheenNimi}" />
+    <h1 th:text="${aiheenNimi}"/>
 
 </div>
 
@@ -22,6 +22,10 @@
             <h3 th:text="${keskustelu.keskustelunotsikko}"></h3>
         </div>
 
+    </div>
+
+    <div>
+        <a href="#">Kirjoita uusi keskustelu</a>
     </div>
 
 </div>
