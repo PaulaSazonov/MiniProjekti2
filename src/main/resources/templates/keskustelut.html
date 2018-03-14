@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="fi" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-
+<html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="fi" xmlns:th="http://www.w3.org/1999/xhtml">-->
 <head  th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
     <title>Keskustelut</title>
@@ -11,10 +11,15 @@
 <!--Ei käytössä toistaiseksi, konsultoi Jania ja Leenaa-->
 
 <div class="container">
-    <h1>Keskustelut</h1>
+    <!--<h1 th:text="${otsikko}"></h1>  lisää dynaaminen otsikko -->
     <ul>
-        <li th:each="keskustelu: ${keskustelulista}">
-            <p th:text="${keskustelu}"></p>
+        <li th:each="viestit: ${listaaviestit}">
+            <!--<p th:text="${keskustelu.kommentit}"></p>-->
+                <p class="p-inline" th:text="${viestit.kirjoittaja}"></p>
+                <p class="p-inline" th:text="${viestit.aikaleima}"></p>
+                <p th:text="${viestit.teksti}"></p>
+
+            <!--<p th:text="${keskustelu.kommentit}"></p>-->
         </li>
 
     </ul>
@@ -23,5 +28,10 @@
 
 <!--Tähän omat koodit-->
 
+<Style>
+    .p-inline {
+        display: inline;
+    }
+</Style>
 </body>
 </html>

@@ -21,18 +21,36 @@ public class KeskusteluKontrolleri {
 
     private KeskusteluRepo keskusteluRepo;
     private AiheRepo aiheRepo;
+<<<<<<< Updated upstream
     private ViestiRepo viestirepo;
 
     public KeskusteluKontrolleri(@Autowired KeskusteluRepo keskusteluRepo, @Autowired AiheRepo aiheRepo, @Autowired ViestiRepo viestirepo) {
         this.keskusteluRepo = keskusteluRepo;
         this.aiheRepo = aiheRepo;
         this.viestirepo = viestirepo;
+=======
+    private ViestiRepo viestiRepo;
+
+    public KeskusteluKontrolleri(@Autowired KeskusteluRepo keskusteluRepo, @Autowired AiheRepo aiheRepo, @Autowired ViestiRepo viestiRepo) {
+        this.keskusteluRepo = keskusteluRepo;
+        this.aiheRepo = aiheRepo;
+        this.viestiRepo = viestiRepo;
+>>>>>>> Stashed changes
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
+<<<<<<< Updated upstream
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
         model.addAttribute("keskustelu", optkesk);
+=======
+    public String naytaYksiKeskustelu (@PathVariable ("aiheenNimi") String aiheenNimi, @PathVariable ("id") int id, Model model){
+        List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+        List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+        model.addAttribute("keskustelut", keskustelut);
+        model.addAttribute("listaaviestit", listaaViestit);
+        return "keskustelut";
+>>>>>>> Stashed changes
 
         //Lomakkeen luonti
         Viesti uusiViesti = new Viesti();
