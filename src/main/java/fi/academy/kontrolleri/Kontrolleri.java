@@ -150,7 +150,6 @@ public class Kontrolleri {
 
     @PostMapping("/foorumi/hakutulos")
     public String haekeskusteluista(fi.academy.kontrolleri.Hakusana sana, Model model) {
-        System.out.println(sana.getSana());
         if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
             return "eiHakutuloksia";
         List<Viesti> haetut = viestiRepo.etsi(sana.getSana());
