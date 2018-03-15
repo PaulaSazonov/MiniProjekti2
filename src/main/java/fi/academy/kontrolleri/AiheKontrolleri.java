@@ -113,14 +113,19 @@ public class AiheKontrolleri {
     @PostMapping("/uusiviesti")
     //@Transactional
     public String uudenViestinKasittelija(Viesti viesti, Model model) {
-        Viesti talletettuViesti = viestiRepo.save(viesti);
-        // Keskustelu keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu());
 
         String aiheenNimi;
         Optional<Keskustelu> keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu().getId());
         aiheenNimi = keskustelu.get().getAihealueJohonKuuluu().getAiheenNimi();
         int id = viesti.getKeskusteluJohonViestiKuuluu().getId();
 
+        // tarkistetaan onko viestin kentät tyhjiä
+        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("")) {
+            Viesti talletettuViesti = viestiRepo.save(viesti);
+        } else {
+            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot");
+            // VIRHEILMOITUKSEN ETEENPÄIN LÄHETYS
+        }
         return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 }
