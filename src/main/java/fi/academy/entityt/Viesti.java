@@ -73,6 +73,14 @@ public class Viesti {
         this.keskusteluJohonViestiKuuluu = keskusteluJohonViestiKuuluu;
     }
 
+    public int getKeskustelunId(){
+        return this.keskusteluJohonViestiKuuluu.getId();
+    }
+
+    public Aihe getViestinAihe (){
+        return this.keskusteluJohonViestiKuuluu.getAihealueJohonKuuluu();
+    }
+
     @Override
     public String toString() {
         return kirjoittaja + ", " + aikaleima + "\n" + teksti;

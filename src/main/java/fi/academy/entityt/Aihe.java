@@ -42,5 +42,10 @@ public class Aihe {
     public void lisaaKeskusteluAiheenListaan(Keskustelu keskustelu) {
         this.keskustelutAiheesta.add(keskustelu);
     }
+
+    @Override
+    public String toString() {
+        return  aiheenNimi;
+    }
 }
 
