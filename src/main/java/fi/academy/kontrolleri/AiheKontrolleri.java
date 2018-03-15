@@ -88,6 +88,9 @@ public class AiheKontrolleri {
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+        String keskustelunotsikko = listaaViestit.get(0).getKeskusteluJohonViestiKuuluu().getKeskustelunotsikko();
+        model.addAttribute("otsikko", keskustelunotsikko);
+        System.out.println("**********************" + keskustelunotsikko);
         model.addAttribute("keskustelut", keskustelut);
         model.addAttribute("listaaviestit", listaaViestit);
 
