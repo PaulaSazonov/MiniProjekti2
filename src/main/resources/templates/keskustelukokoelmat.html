@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="fi" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/otsake :: head">
+<!--<html lang="fi" xmlns:th="http://www.thymeleaf.org">-->
+<html lang="fi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head  th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
-    <title>Sanonnat</title>
+    <title>Keskustelut</title>
 </head>
 <body>
 <div th:replace="fragments/navi :: navbar"/>
@@ -16,10 +19,10 @@
 
 
 <div class="container">
-
     <div>
         <div th:each="keskustelu: ${keskustelulista}">
-            <h3 th:text="${keskustelu.keskustelunotsikko}"></h3>
+            <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
+            <!--<h3> <a th:href="@{/foorumi/} + ${aiheenNimi} + '/' + ${keskustelu.id}">ID</a></h3>-->
         </div>
 
     </div>
@@ -27,6 +30,12 @@
     <div>
         <a href="#">Kirjoita uusi keskustelu</a>
     </div>
+ <!--   <div>
+        <div th:each="keskustelu: ${keskustelulista}">
+            <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
+        </div>
+
+    </div>-->
 
 </div>
 <!--Tähän omat koodit-->

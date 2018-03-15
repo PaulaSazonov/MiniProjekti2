@@ -33,7 +33,7 @@ public class ViestiKontrolleri {
     @PostMapping("/foorumi/hakutulos")
     public String haekeskusteluista(Hakusana sana, Model model) {
         System.out.println(sana.getHakusana());
-        if (sana == null || sana.getHakusana() == null || sana.getHakusana().trim().isEmpty()) 
+        if (sana == null || sana.getHakusana() == null || sana.getHakusana().trim().isEmpty())
             return "redirect:index";
         List<Viesti> haetut = viestiRepo.findViestiByTekstiContaining(sana.getHakusana());
         model.addAttribute("aiheenNimi", haetut.get(0).getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu());
