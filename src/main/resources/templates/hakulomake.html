@@ -10,14 +10,23 @@
 <!--Tähän omat koodit-->
 
 <div class="container">
-    <h1>Hae hakusanalla:</h1>
+    <h1>Hae foorumista:</h1>
+    <br>
     <div>
-        <form th:action="@{/foorumi/hakutulos}" th:method="POST">
-            <input type="text" th:field="${hakusana}"/>
+        <form class="form-horizontal" th:action="@{/foorumi/hakutulos}" th:object="${hakusana}" th:method="POST">
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" th:field="*{sana}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-default">Hae</button>
+                </div>
+            </div>
         </form>
     </div>
 
 </div>
-
 </body>
 </html>

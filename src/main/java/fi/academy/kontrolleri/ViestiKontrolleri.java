@@ -1,7 +1,9 @@
 
 package fi.academy.kontrolleri;
 
+import fi.academy.entityt.Aihe;
 import fi.academy.entityt.Viesti;
+import fi.academy.repositoryt.AiheRepo;
 import fi.academy.repositoryt.ViestiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,45 +19,56 @@ import java.util.List;
 public class ViestiKontrolleri {
 
     private ViestiRepo viestiRepo;
+    private AiheRepo aiheRepo;
 
-    public ViestiKontrolleri(@Autowired ViestiRepo viestiRepo) {
+    public ViestiKontrolleri(@Autowired ViestiRepo viestiRepo, @Autowired AiheRepo aiheRepo) {
         this.viestiRepo = viestiRepo;
+        this.aiheRepo = aiheRepo;
+    }
+
+    @ModelAttribute
+    public void annaKaikille(Model model) {
+        Iterable<Aihe> aiheet = aiheRepo.findAll();
+        model.addAttribute("aiheet", aiheet);
     }
 
     @GetMapping("/foorumi/haku")
     public String hakulomake (Model model){
         Hakusana hakusana = new Hakusana();
-        hakusana.setHakusana("");
-        model.addAttribute("hakusana", hakusana.getHakusana());
+        hakusana.setSana("");
+        model.addAttribute("hakusana", hakusana);
         return "hakulomake";
     }
 
     @PostMapping("/foorumi/hakutulos")
     public String haekeskusteluista(Hakusana sana, Model model) {
-        System.out.println(sana.getHakusana());
-        if (sana == null || sana.getHakusana() == null || sana.getHakusana().trim().isEmpty())
-            return "redirect:index";
-        List<Viesti> haetut = viestiRepo.findViestiByTekstiContaining(sana.getHakusana());
-        model.addAttribute("aiheenNimi", haetut.get(0).getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu());
-        model.addAttribute("keskustelulista", haetut);
-        return "keskustelukokoelmat";
+        System.out.println(sana.getSana());
+        if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
+            return "redirect:/";
+        List<Viesti> haetut = viestiRepo.findViestiByTekstiContaining(sana.getSana());
+        //List<Viesti> haetut = viestiRepo.findViestiByKeskusteluJohonViestiKuuluuContainingAndTekstiContaining(sana.getSana());
+        if(haetut.isEmpty()){
+            return "eiHakutuloksia";
+        }
+        model.addAttribute("viestilista", haetut);
+        return "hakutulokset";
     }
 }
 class Hakusana {
-    private String hakusana;
+    private String sana;
 
     public Hakusana() {
     }
 
-    public Hakusana(String hakusana) {
-        this.hakusana = hakusana;
+    public Hakusana(String sana) {
+        this.sana = sana;
     }
 
-    public String getHakusana() {
-        return hakusana;
+    public String getSana() {
+        return sana;
     }
-    public void setHakusana(String hakusana) {
-        this.hakusana = hakusana;
+    public void setSana(String sana) {
+        this.sana = sana;
     }
 }
 

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="fi" xmlns:th="http://www.thymeleaf.org">
-<!--<html lang="fi" xmlns:th="http://www.w3.org/1999/xhtml">-->
 <head  th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
-    <title>Keskustelut</title>
+    <title>Ryhmä 3</title>
 </head>
 <body>
 <div th:replace="fragments/navi :: navbar"/>
@@ -12,41 +11,40 @@
 
 <div class="container">
     <!--<h1 th:text="${otsikko}"></h1>  lisää dynaaminen otsikko -->
-    <ul>
-        <li th:each="viestit: ${listaaviestit}">
-            <!--<p th:text="${keskustelu.kommentit}"></p>-->
-                <p class="p-inline" th:text="${viestit.kirjoittaja}"></p>
-                <p class="p-inline" th:text="${viestit.aikaleima}"></p>
-                <p th:text="${viestit.teksti}"></p>
-
-            <!--<p th:text="${keskustelu.kommentit}"></p>-->
-        </li>
-
-    </ul>
+    <div class="kommentti-divi" th:each="viestit: ${listaaviestit}">
+        <p class="p-inline p-padding" th:text="${viestit.kirjoittaja}"></p>
+        <p class="p-inline p-padding" th:text="${#temporals.format(viestit.aikaleima, 'dd.MM.yyyy / HH:mm')}"></p>
+        <p class="p-padding" th:text="${viestit.teksti}"></p>
+    </div>
 
 </div>
 
 <div class="container">
 
-    <form th:action="@{/uusiviesti}" th:object="${lomake}" method="post">
+    <form class="form-horizontal" th:action="@{/uusiviesti}" th:object="${lomake}" method="post">
 
-        <!--<input type="hidden" th:field="*{aikaleima}"/>-->
-        <div><label th:text="'Nimi:'" th:for="nimi"/> <input th:field="*{kirjoittaja}"/></div>
-        <div><label th:text="'Viestisi:'" th:for="teksti"/><textarea th:field="*{teksti}"/></div>
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="'Nimi:'" th:for="nimi"/>
+            <div class="col-sm-10">
+                <input class="form-control" th:field="*{kirjoittaja}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="'Viestisi:'" th:for="teksti"/>
+            <div class="col-sm-10">
+                <textarea class="form-control" th:field="*{teksti}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Lähetä</button>
+            </div>
+        </div>
 
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" th:field="*{keskusteluJohonViestiKuuluu.id}"/>
 
     </form>
 </div>
-
-<!--Tähän omat koodit-->
-
-<Style>
-    .p-inline {
-        display: inline;
-    }
-</Style>
 </body>
 </html>
