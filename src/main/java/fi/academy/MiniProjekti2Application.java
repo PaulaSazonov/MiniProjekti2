@@ -26,7 +26,7 @@ public class MiniProjekti2Application {
         return (args) -> {
 
             // KISSA-AIHEALUE
-            Aihe aihe = new Aihe("Kissa");
+            Aihe aihe = new Aihe("Kissat");
             aiheRepo.save(aihe); // Koska CASCADE käytössä, ei tarvitse tallentaa viestejä ja keskusteluita erikseen repoon, vaan menevät aiheen tallennuksella
 
             // 1. KISSA-KESKUSTELU
