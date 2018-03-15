@@ -12,16 +12,26 @@
 <div class="container">
     <h1>Hakutulokset:</h1>
     <h1> </h1>
-<ul style="list-style-type: none">
+<!--
     <li th:each="viesti : ${viestilista}">
-        <!--<p th:text="${keskustelu.kommentit}"></p>-->
+        &lt;!&ndash;<p th:text="${keskustelu.kommentit}"></p>&ndash;&gt;
         <p class="p-inline p-padding" th:text="'Kirjoittaja: ' + ${viesti.kirjoittaja}"></p>
         <p class="p-inline p-padding" th:text="${#temporals.format(viesti.aikaleima, 'dd.MM.yyyy / HH:mm ')}"></p>
         <p class="p-inline p-padding" th:text="${viesti.teksti}"></p>
         <a th:href="'/foorumi/' + ${viesti.viestinAihe} + '/' + ${viesti.keskustelunId}"> Siirry viestiketjuun</a>
         <br>
-    </li>
-</ul>
+    </li>-->
+    <div >
+        <!--<h1 th:text="${otsikko}"></h1>  lisää dynaaminen otsikko -->
+        <div class="kommentti-divi" th:each="viesti: ${viestilista}">
+            <p class="p-inline p-padding" th:text="'Kirjoittaja: ' + ${viesti.kirjoittaja}"></p>
+            <p class="p-inline p-padding" th:text="${#temporals.format(viesti.aikaleima, 'dd.MM.yyyy / HH:mm ')}"></p>
+            <p class="p-padding" th:text="${viesti.teksti}"></p>
+            <a class="p-padding" th:href="'/foorumi/' + ${viesti.viestinAihe} + '/' + ${viesti.keskustelunId}"> Siirry viestiketjuun</a>
+        </div>
+
+    </div>
+
 </div>
 
 </body>
