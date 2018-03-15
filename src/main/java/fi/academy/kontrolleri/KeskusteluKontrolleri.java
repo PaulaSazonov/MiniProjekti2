@@ -57,20 +57,20 @@ public class KeskusteluKontrolleri {
 //        }
 //    }
 
-    @GetMapping("/foorumi/{aiheenNimi}/{id}")
-    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
-        List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
-        model.addAttribute("keskustelut", keskustelut);
-        model.addAttribute("listaaviestit", listaaViestit);
-
-        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
-        Viesti uusiViesti = new Viesti();
-        uusiViesti.setKeskusteluJohonViestiKuuluu(optkesk.get());
-        model.addAttribute("lomake", uusiViesti);
-
-        return "keskustelut";
-    }
+//    @GetMapping("/foorumi/{aiheenNimi}/{id}")
+//    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
+//        List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+//        List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+//        model.addAttribute("keskustelut", keskustelut);
+//        model.addAttribute("listaaviestit", listaaViestit);
+//
+//        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
+//        Viesti uusiViesti = new Viesti();
+//        uusiViesti.setKeskusteluJohonViestiKuuluu(optkesk.get());
+//        model.addAttribute("lomake", uusiViesti);
+//
+//        return "keskustelut";
+//    }
 
 
     // Ei pitäisi tarvita enää, jätetty varan vuoksi
