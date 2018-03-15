@@ -85,6 +85,18 @@ public class MiniProjekti2Application {
             keskustelu.lisaaViestiListaan(viesti3);
             keskusteluRepo.save(keskustelu);
 
+            // LISÄÄ AIHEALUEITA
+            aihe = new Aihe("Jyrsijät");
+            aiheRepo.save(aihe);
+            aihe = new Aihe("Linnut");
+            aiheRepo.save(aihe);
+            aihe = new Aihe("Kalat");
+            aiheRepo.save(aihe);
+            aihe = new Aihe("Matelijat");
+            aiheRepo.save(aihe);
+            aihe = new Aihe("Muut");
+            aiheRepo.save(aihe);
+
         };
     }
 
