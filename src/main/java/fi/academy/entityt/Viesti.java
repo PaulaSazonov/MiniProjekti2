@@ -85,5 +85,9 @@ public class Viesti {
     public String toString() {
         return kirjoittaja + ", " + aikaleima + "\n" + teksti;
     }
+
+    public String getKeskustelu (){
+        return this.keskusteluJohonViestiKuuluu.getKeskustelunotsikko();
+    }
 }
 

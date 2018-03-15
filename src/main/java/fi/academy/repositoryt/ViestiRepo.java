@@ -12,8 +12,12 @@ import java.util.List;
 public interface ViestiRepo extends CrudRepository<Viesti, Integer> {
     List<Viesti> findViestiByTekstiContaining(String hakusana);
 
+
     @Query("SELECT v FROM Viesti v where v.keskusteluJohonViestiKuuluu.id= :id")
     List<Viesti> listaaViestit (@Param("id") Integer id);
+
+//    @Query("SELECT v FROM Viesti v where v.keskustelu")
+//    List<Viesti> findViestiBy
 
 //    @Query("SELECT k FROM Keskustelu k WHERE k.aihealueJohonKuuluu LIKE CONCAT(:aiheenNimi, '%') ")
 //    List<Keskustelu> haeKeskustelutAiheella (@Param("aiheenNimi") String aiheenNimi);
