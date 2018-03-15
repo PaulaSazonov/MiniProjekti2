@@ -48,6 +48,9 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}")
     public String naytaAiheenKeskustelut(@PathVariable String aiheenNimi, Model model) {
         List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+        if (keskustelulista.isEmpty()){
+            return "eiHakutuloksia";
+        }
         model.addAttribute("aiheenNimi", aiheenNimi);
         model.addAttribute("keskustelulista", keskustelulista);
         return "keskustelukokoelmat";
@@ -96,10 +99,15 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+        if (keskustelut.isEmpty()){
+            return "eiHakutuloksia";
+        }
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+        if (listaaViestit.isEmpty()){
+            return "eiHakutuloksia";
+        }
         String keskustelunotsikko = listaaViestit.get(0).getKeskusteluJohonViestiKuuluu().getKeskustelunotsikko();
         model.addAttribute("otsikko", keskustelunotsikko);
-        System.out.println("**********************" + keskustelunotsikko);
         model.addAttribute("keskustelut", keskustelut);
         model.addAttribute("listaaviestit", listaaViestit);
 
