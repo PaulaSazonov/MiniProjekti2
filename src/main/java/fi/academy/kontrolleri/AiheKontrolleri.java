@@ -80,7 +80,16 @@ public class AiheKontrolleri {
     public String uudenKeskustelunKasittelija(Keskustelu keskustelu, Model model) {
 
         keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
-        keskusteluRepo.save(keskustelu);
+
+        // TARKISTATAAN ONKO VIESTIN KENTÄT TYHJÄT
+        Viesti viesti = keskustelu.getAloitusviesti();
+        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("") || !keskustelu.getKeskustelunotsikko().equals("")) {
+            keskusteluRepo.save(keskustelu);
+        } else {
+            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
+            String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
+            return lisaaUusiKeskustelu(aiheenNimi, model);
+        }
 
         String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
         int id = keskustelu.getId();
@@ -124,9 +133,9 @@ public class AiheKontrolleri {
         if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("")) {
             Viesti talletettuViesti = viestiRepo.save(viesti);
         } else {
-            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot");
-            // VIRHEILMOITUKSEN ETEENPÄIN LÄHETYS
+            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
         }
+
         return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 }
