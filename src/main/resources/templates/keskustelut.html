@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 <html lang="fi" xmlns:th="http://www.thymeleaf.org">
+<html lang="fi" xmlns:th="http://www.w3.org/1999/xhtml">
 <head  th:include="fragments/otsake :: head">
     <meta charset="UTF-8"/>
     <title>Ryhmä 3</title>
@@ -8,6 +9,13 @@
 <div th:replace="fragments/navi :: navbar"/>
 
 <!--Ei käytössä toistaiseksi, konsultoi Jania ja Leenaa-->
+
+<div class="container">
+    <div>
+        <h3 th:text="${otsikko}"></h3>
+        <!--<h3> <a th:href="@{/foorumi/} + ${aiheenNimi} + '/' + ${keskustelu.id}">ID</a></h3>-->
+    </div>
+</div>
 
 <div class="container">
     <!--<h1 th:text="${otsikko}"></h1>  lisää dynaaminen otsikko -->

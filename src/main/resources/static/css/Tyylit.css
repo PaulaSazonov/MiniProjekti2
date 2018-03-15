@@ -3,6 +3,10 @@ h1 {
     font-size: 200%;
 }
 
+p {
+    font-size: medium;
+}
+
 body {
     background: url("https://images.unsplash.com/photo-1500174857981-b769ffdc53ce");
     background-size: cover;
@@ -28,6 +32,10 @@ body {
     padding: 20px 40px;
     background-color: rgba(10, 10, 10, 0.7);
     border-radius: 5px;
+}
+
+.p-pieni {
+    font-size: smaller;
 }
 
 .p-inline {
