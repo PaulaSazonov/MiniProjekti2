@@ -27,6 +27,11 @@
 
 </div>
 
+<div class="container" th:if="${virhe}">
+    <p th:text="${virhe}"/>
+</div>
+
+
 <div class="container">
 
     <form class="form-horizontal" th:action="@{/uusiviesti}" th:object="${lomake}" method="post">

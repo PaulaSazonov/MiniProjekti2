@@ -15,9 +15,9 @@
 
     <div >
         <div class="kommentti-divi" th:each="viesti: ${viestilista}">
-            <h3 th:text="${viesti.getKeskustelu()}"></h3>
-            <p class="p-inline p-padding" th:text="'Kirjoittaja: ' + ${viesti.kirjoittaja}"></p>
-            <p class="p-inline p-padding" th:text="${#temporals.format(viesti.aikaleima, 'dd.MM.yyyy / HH:mm ')}"></p>
+            <h3 class="p-padding" th:text="${viesti.getKeskustelu()}"></h3>
+            <p class="p-inline p-padding p-pieni" th:text="'Kirjoittaja: ' + ${viesti.kirjoittaja}"></p>
+            <p class="p-inline p-padding p-pieni" th:text="${#temporals.format(viesti.aikaleima, 'dd.MM.yyyy / HH:mm ')}"></p>
             <p class="p-padding" th:text="${viesti.teksti}"></p>
             <a class="p-padding" th:href="'/foorumi/' + ${viesti.viestinAihe} + '/' + ${viesti.keskustelunId}"> Siirry viestiketjuun</a>
         </div>
