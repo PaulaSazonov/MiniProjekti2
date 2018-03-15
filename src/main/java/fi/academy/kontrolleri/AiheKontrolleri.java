@@ -63,6 +63,7 @@ public class AiheKontrolleri {
 
         Viesti uusiAloitusviesti = new Viesti();
         uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
+
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
         model.addAttribute("lomake", uusiKeskustelu);
@@ -71,8 +72,11 @@ public class AiheKontrolleri {
     }
 
     @PostMapping("/uusikeskustelu")
-    @Transactional
+    //@Transactional
     public String uudenKeskustelunKasittelija(Keskustelu keskustelu) {
+
+        keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
+
         keskusteluRepo.save(keskustelu);
         return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
     }
@@ -95,10 +99,15 @@ public class AiheKontrolleri {
     @PostMapping("/uusiviesti")
     //@Transactional
     public String uudenViestinKasittelija(Viesti viesti, Model model) {
-         viesti = viestiRepo.save(viesti);
+        Viesti talletettuViesti = viestiRepo.save(viesti);
+        // Keskustelu keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu());
 
-        //return naytaYksiKeskustelu(viesti.getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu().getAiheenNimi(),viesti.getKeskusteluJohonViestiKuuluu().getId(),model);
-        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+        String aiheenNimi;
+        Optional<Keskustelu> keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu().getId());
+        aiheenNimi = keskustelu.get().getAihealueJohonKuuluu().getAiheenNimi();
+        int id = viesti.getKeskusteluJohonViestiKuuluu().getId();
+
+        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 }
 
