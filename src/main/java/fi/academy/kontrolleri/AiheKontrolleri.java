@@ -6,6 +6,7 @@ import fi.academy.entityt.Keskustelu;
 import fi.academy.entityt.Viesti;
 import fi.academy.repositoryt.AiheRepo;
 import fi.academy.repositoryt.KeskusteluRepo;
+import fi.academy.repositoryt.ViestiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,13 @@ public class AiheKontrolleri {
 
     private AiheRepo aiheRepo;
     private KeskusteluRepo keskusteluRepo;
+    private ViestiRepo viestiRepo;
 
 
-    public AiheKontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo) {
+    public AiheKontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo, @Autowired ViestiRepo viestiRepo) {
         this.aiheRepo = aiheRepo;
         this.keskusteluRepo = keskusteluRepo;
+        this.viestiRepo = viestiRepo;
     }
 
     @ModelAttribute
@@ -59,6 +62,7 @@ public class AiheKontrolleri {
         uusiKeskustelu.setAihealueJohonKuuluu(aihe.get());
 
         Viesti uusiAloitusviesti = new Viesti();
+        uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
         model.addAttribute("lomake", uusiKeskustelu);
@@ -72,5 +76,30 @@ public class AiheKontrolleri {
         keskusteluRepo.save(keskustelu);
         return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
     }
+
+    @GetMapping("/foorumi/{aiheenNimi}/{id}")
+    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
+        List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
+        List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+        model.addAttribute("keskustelut", keskustelut);
+        model.addAttribute("listaaviestit", listaaViestit);
+
+        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
+        Viesti uusiViesti = new Viesti();
+        uusiViesti.setKeskusteluJohonViestiKuuluu(optkesk.get());
+        model.addAttribute("lomake", uusiViesti);
+
+        return "keskustelut";
+    }
+
+    @PostMapping("/uusiviesti")
+    //@Transactional
+    public String uudenViestinKasittelija(Viesti viesti, Model model) {
+         viesti = viestiRepo.save(viesti);
+
+        //return naytaYksiKeskustelu(viesti.getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu().getAiheenNimi(),viesti.getKeskusteluJohonViestiKuuluu().getId(),model);
+        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+    }
 }
+
 

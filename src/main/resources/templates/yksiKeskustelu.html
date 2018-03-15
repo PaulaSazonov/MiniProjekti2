@@ -9,6 +9,7 @@
 <div th:replace="fragments/navi :: navbar"/>
 
 <!--Tähän omat koodit-->
+<!--Tämä yhdistää keskustelu.html kanssa, sillä siellä keskustelut, ja tällä sivulla vastaus-formi-->
 
 <div class="container">
     <h1>Keskustelut</h1>
@@ -18,7 +19,7 @@
 
 <div class="container">
 
-    <form th:action="@{/uusikeskustelu}" th:object="${lomake}" method="post">
+    <form th:action="@{/uusiviesti}" th:object="${lomake}" method="post">
 
         <!--<input type="hidden" th:field="*{aikaleima}"/>-->
         <div><label th:text="'Nimi:'" th:for="nimi"/> <input th:field="*{kirjoittaja}"/></div>
@@ -26,8 +27,6 @@
         <button type="submit">Submit</button>
 
         <input type="hidden" th:field="*{id}"/>
-
-
         <input type="hidden" th:field="*{keskusteluJohonViestiKuuluu.id}"/>
 
     </form>
