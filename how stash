@@ -1,0 +1,178 @@
+[33mcommit 3d2d210694490588a2555d9788c6083abca5801f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31mMiniProjekti2/master[m[33m)[m
+Author: veli-pekka.nurmi <nurmi.vp@gmail.com>
+Date:   Wed Mar 14 16:22:15 2018 +0200
+
+    uuden keskustelun lisäys toteutettu
+
+[33mcommit 42298963b94838a0ae153fbf8eeb9a1f547ec386[m
+Author: veli-pekka.nurmi <nurmi.vp@gmail.com>
+Date:   Wed Mar 14 15:45:05 2018 +0200
+
+    Keskusteluketjuun vastaaminen / uuden viestin luominen
+
+[33mcommit ec5edf93df8386427d5895cc8e9df2c26c51b5fd[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 14:14:57 2018 +0200
+
+    Luokkarakenteen muutoksen aiheuttama bugi korjattu
+
+[33mcommit 06b52f1c4a8d3c0a03d9108b60242d33c658dd4f[m
+Merge: a54e348 bcde765
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 13:40:42 2018 +0200
+
+    Merge branch 'master' of https://github.com/PaulaSazonov/MiniProjekti2
+
+[33mcommit a54e3488996014a3f781bc3b1895d6d869ded616[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 13:39:11 2018 +0200
+
+    Keskustelu-luokan rakennetta muutettu, päällekkäisyyttä poistettu
+
+[33mcommit bcde765732c27f6d9c742d302920af238ca8146d[m
+Author: leenaschaumann <leena.schaumann@gmail.com>
+Date:   Wed Mar 14 11:50:54 2018 +0200
+
+    Thymeleaf näyttää dynaamisesti sivulla aiheen nimen ja otsikot
+
+[33mcommit 98ae0701f01173c0c19960517555b71672a641c7[m
+Merge: 894b287 41564ff
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 11:32:46 2018 +0200
+
+    Merge branch 'master' of https://github.com/PaulaSazonov/MiniProjekti2
+
+[33mcommit 894b287d86fe0f3906b0cee9fe623c072b3ba811[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 11:32:11 2018 +0200
+
+    Yhden keskustelun haku toteutettu Keskustelukontrolleriin
+
+[33mcommit 41564ff34d0c60d492bd62eff01fc47549e01ce1[m
+Author: taappana <herranen.jani@gmail.com>
+Date:   Wed Mar 14 11:18:15 2018 +0200
+
+    Dynaamisen ketterä navi
+
+[33mcommit 02777ff71987ee2f4b5f9e170e1bc38e1c18ad13[m
+Merge: 5b59b70 1f20844
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 11:15:00 2018 +0200
+
+    Merge branch 'master' of https://github.com/PaulaSazonov/MiniProjekti2
+
+[33mcommit 5b59b707f9619aaf958d44323c8465c563a42d3b[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Wed Mar 14 11:13:47 2018 +0200
+
+    KeskusteluRepoa ja Kontrolleria muokattu, mahdollista etsiä tietokannasta tietyn aiheen keskustelut
+
+[33mcommit 1f20844730bf24f075588fd603dd35539f8a5126[m
+Author: taappana <herranen.jani@gmail.com>
+Date:   Wed Mar 14 10:28:13 2018 +0200
+
+    Lisätty kontrolleriin ja naviin linkkien lisääminen dynaamisesti
+
+[33mcommit fcef5db72bec6a58dc7bead65a730e7e8ecf8f33[m
+Author: leenaschaumann <leena.schaumann@gmail.com>
+Date:   Wed Mar 14 09:50:43 2018 +0200
+
+    Kontrolleria aloiteltu
+
+[33mcommit 28d97bedb3af5fdea014cd6d9c41165fac658511[m
+Author: taappana <herranen.jani@gmail.com>
+Date:   Wed Mar 14 09:11:22 2018 +0200
+
+    Fiksattu gitignorea
+
+[33mcommit 1ab48e423d90004c9c493ace599fe62a6c394cae[m
+Author: veli-pekka.nurmi <nurmi.vp@gmail.com>
+Date:   Tue Mar 13 23:55:58 2018 +0200
+
+    dummy-data syötetty; kissa ja koira -aiheille
+
+[33mcommit 803fb8504c4ca97eae0286c03ca08a9908429f0a[m
+Author: veli-pekka.nurmi <nurmi.vp@gmail.com>
+Date:   Tue Mar 13 23:44:35 2018 +0200
+
+    luokkien riippuvuudet ja repositorit korjattu
+
+[33mcommit eb4ec6626053adbd2d210c6041f264c60dc1970b[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 16:59:18 2018 +0200
+
+    Alustusta tehty CommandLineRunnerissa
+
+[33mcommit 7088a21e57f13e9aebe14de480d17fcbb16371cb[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 16:16:37 2018 +0200
+
+    Kayttaja poistettu, muita luokkarakenteita luotu
+
+[33mcommit 2c836efec621128f1cce45d1d11be25fc6d22b5b[m
+Author: veli-pekka.nurmi <nurmi.vp@gmail.com>
+Date:   Tue Mar 13 15:55:36 2018 +0200
+
+    Käyttäjä poistettu, jäsenmuuttujat lisätty, alustus ei vielä toimi
+
+[33mcommit aca3567660ae71c2e5575dbabfc5dff71a18cacb[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 14:30:04 2018 +0200
+
+    Luokkia alustettu muuttujilla
+
+[33mcommit 352478dfedb80134e73eb8871367754be11ad1ea[m
+Author: taappana <herranen.jani@gmail.com>
+Date:   Tue Mar 13 14:27:12 2018 +0200
+
+    Lisätty navbar ja tyylittelyä sivulle
+
+[33mcommit ac2ba35fc59f71e1dc48271f36607f3f288a0d49[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 13:49:54 2018 +0200
+
+    Kayttaja-luokka, kontrolleri ja repo alustettu
+
+[33mcommit dfb60752c01ac0ed0d8537762b745046b40f5c75[m
+Merge: 471d556 0506a66
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 12:01:08 2018 +0200
+
+    Merge branch 'master' of https://github.com/PaulaSazonov/MiniProjekti2
+
+[33mcommit 471d5564bca946b8bfbcdc49dd954a220f21ecd1[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 12:00:31 2018 +0200
+
+    Git sucks
+
+[33mcommit f61844ec5101bd604fbfd6066745ba694dab7385[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 11:55:55 2018 +0200
+
+    Luokkarakennetta tehty
+
+[33mcommit 0506a668b65592f3e2d55505afa4c091c45dacd3[m
+Author: PaulaSazonov <35954782+PaulaSazonov@users.noreply.github.com>
+Date:   Tue Mar 13 11:41:33 2018 +0200
+
+    Add files via upload
+
+[33mcommit 46c88b32459aadee5a2fcea7a2387999fac44da2[m
+Merge: 207a2ae b16577d
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 11:34:38 2018 +0200
+
+    Merge branch 'master' of https://github.com/PaulaSazonov/MiniProjekti2
+
+[33mcommit 207a2ae2ac41ce39cac01df92a9b0b2652dc27e6[m
+Author: PaulaSazonov <paula.sazonov@gmail.com>
+Date:   Tue Mar 13 11:28:29 2018 +0200
+
+    Pohja tehty
+
+[33mcommit b16577df5e029b8d8c8bf882860b16ef5b737dd6[m
+Author: PaulaSazonov <35954782+PaulaSazonov@users.noreply.github.com>
+Date:   Tue Mar 13 11:00:13 2018 +0200
+
+    Initial commit

@@ -28,7 +28,7 @@ public class AiheKontrolleri {
     private ViestiRepo viestiRepo;
 
 
-    public AiheKontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo, ViestiRepo viestiRepo) {
+    public AiheKontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo, @Autowired ViestiRepo viestiRepo) {
         this.aiheRepo = aiheRepo;
         this.keskusteluRepo = keskusteluRepo;
         this.viestiRepo = viestiRepo;
@@ -62,6 +62,7 @@ public class AiheKontrolleri {
         uusiKeskustelu.setAihealueJohonKuuluu(aihe.get());
 
         Viesti uusiAloitusviesti = new Viesti();
+        uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
         model.addAttribute("lomake", uusiKeskustelu);
@@ -90,5 +91,15 @@ public class AiheKontrolleri {
 
         return "keskustelut";
     }
+
+    @PostMapping("/uusiviesti")
+    //@Transactional
+    public String uudenViestinKasittelija(Viesti viesti, Model model) {
+         viesti = viestiRepo.save(viesti);
+
+        //return naytaYksiKeskustelu(viesti.getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu().getAiheenNimi(),viesti.getKeskusteluJohonViestiKuuluu().getId(),model);
+        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+    }
 }
+
 

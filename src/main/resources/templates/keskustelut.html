@@ -28,7 +28,7 @@
 
 <div class="container">
 
-    <form th:action="@{/uusikeskustelu}" th:object="${lomake}" method="post">
+    <form th:action="@{/uusiviesti}" th:object="${lomake}" method="post">
 
         <!--<input type="hidden" th:field="*{aikaleima}"/>-->
         <div><label th:text="'Nimi:'" th:for="nimi"/> <input th:field="*{kirjoittaja}"/></div>
@@ -36,8 +36,6 @@
         <button type="submit">Submit</button>
 
         <input type="hidden" th:field="*{id}"/>
-
-
         <input type="hidden" th:field="*{keskusteluJohonViestiKuuluu.id}"/>
 
     </form>
