@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class AiheKontrolleri {
+public class Kontrolleri {
 
     private AiheRepo aiheRepo;
     private KeskusteluRepo keskusteluRepo;
     private ViestiRepo viestiRepo;
 
 
-    public AiheKontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo, @Autowired ViestiRepo viestiRepo) {
+    public Kontrolleri(@Autowired AiheRepo aiheRepo, @Autowired KeskusteluRepo keskusteluRepo, @Autowired ViestiRepo viestiRepo) {
         this.aiheRepo = aiheRepo;
         this.keskusteluRepo = keskusteluRepo;
         this.viestiRepo = viestiRepo;
@@ -48,8 +48,9 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}")
     public String naytaAiheenKeskustelut(@PathVariable String aiheenNimi, Model model) {
         List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        if (keskustelulista.isEmpty()){
-            return "eiHakutuloksia";
+        if (keskustelulista.isEmpty()) {
+            lisaaUusiKeskustelu(aiheenNimi, model);
+            return "uusikeskustelu";
         }
         model.addAttribute("aiheenNimi", aiheenNimi);
         model.addAttribute("keskustelulista", keskustelulista);
@@ -100,11 +101,11 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        if (keskustelut.isEmpty()){
+        if (keskustelut.isEmpty()) {
             return "eiHakutuloksia";
         }
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
-        if (listaaViestit.isEmpty()){
+        if (listaaViestit.isEmpty()) {
             return "eiHakutuloksia";
         }
         String keskustelunotsikko = listaaViestit.get(0).getKeskusteluJohonViestiKuuluu().getKeskustelunotsikko();
@@ -138,6 +139,46 @@ public class AiheKontrolleri {
 
         return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
+
+    @GetMapping("/foorumi/haku")
+    public String hakulomake(Model model) {
+        fi.academy.kontrolleri.Hakusana hakusana = new fi.academy.kontrolleri.Hakusana();
+        hakusana.setSana("");
+        model.addAttribute("hakusana", hakusana);
+        return "hakulomake";
+    }
+
+    @PostMapping("/foorumi/hakutulos")
+    public String haekeskusteluista(fi.academy.kontrolleri.Hakusana sana, Model model) {
+        System.out.println(sana.getSana());
+        if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
+            return "eiHakutuloksia";
+        List<Viesti> haetut = viestiRepo.etsi(sana.getSana());
+        if (haetut.isEmpty()) {
+            return "eiHakutuloksia";
+        }
+        model.addAttribute("viestilista", haetut);
+        return "hakutulokset";
+    }
 }
+
+class Hakusana {
+    private String sana;
+
+    public Hakusana() {
+    }
+
+    public Hakusana(String sana) {
+        this.sana = sana;
+    }
+
+    public String getSana() {
+        return sana;
+    }
+    public void setSana(String sana) {
+        this.sana = sana;
+    }
+}
+
 
 
