@@ -17,12 +17,10 @@
 
 </div>
 
-
 <div class="container">
     <div>
         <div th:each="keskustelu: ${keskustelulista}">
             <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
-            <!--<h3> <a th:href="@{/foorumi/} + ${aiheenNimi} + '/' + ${keskustelu.id}">ID</a></h3>-->
         </div>
         <br>
         <br>
@@ -33,16 +31,8 @@
                 </form>
             </div>
         </div>
- <!--
- <a th:href="'' + ${aiheenNimi} + '/uusikeskustelu'"> Kirjoita uusi keskustelu</a><div>
-        <div th:each="keskustelu: ${keskustelulista}">
-            <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
-        </div>
-
-    </div>-->
-
+    </div>
 </div>
-<!--Tähän omat koodit-->
 
 </body>
 </html>

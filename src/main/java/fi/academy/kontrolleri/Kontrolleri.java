@@ -49,7 +49,13 @@ public class Kontrolleri {
     public String naytaAiheenKeskustelut(@PathVariable String aiheenNimi, Model model) {
         List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
         if (keskustelulista.isEmpty()) {
-            lisaaUusiKeskustelu(aiheenNimi, model);
+
+            Keskustelu keskustelu = new Keskustelu();
+            Viesti viesti = new Viesti();
+            keskustelu = null;
+            viesti = null;
+
+            lisaaUusiKeskustelu(aiheenNimi, model, viesti, keskustelu);
             return "uusikeskustelu";
         }
         model.addAttribute("aiheenNimi", aiheenNimi);
@@ -58,15 +64,21 @@ public class Kontrolleri {
     }
 
     @GetMapping("foorumi/{aiheenNimi}/uusikeskustelu")
-    public String lisaaUusiKeskustelu(@PathVariable String aiheenNimi, Model model) {
+    public String lisaaUusiKeskustelu(@PathVariable String aiheenNimi, Model model, Viesti viesti, Keskustelu keskustelu) {
 
         Optional<Aihe> aihe = aiheRepo.findById(aiheenNimi);
 
         Keskustelu uusiKeskustelu = new Keskustelu();
         uusiKeskustelu.setAihealueJohonKuuluu(aihe.get());
+//        if (keskustelu != null) {// jos palataan virheilmoituksen kautta
+//            uusiKeskustelu = keskustelu;
+//        }
 
         Viesti uusiAloitusviesti = new Viesti();
         uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
+        if (viesti != null) { // jos palataan virheilmoituksen kautta
+            uusiAloitusviesti = viesti;
+        }
 
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
@@ -82,24 +94,32 @@ public class Kontrolleri {
 
         keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
 
+        // palautus URLiin liittyvät kommentit
+        String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
         // TARKISTATAAN ONKO VIESTIN KENTÄT TYHJÄT
         Viesti viesti = keskustelu.getAloitusviesti();
-        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("") || !keskustelu.getKeskustelunotsikko().equals("")) {
-            keskusteluRepo.save(keskustelu);
+
+        // TARKISTA KAIKKI KENTÄT
+        if (viesti.getKirjoittaja().isEmpty() || viesti.getTeksti().isEmpty() || keskustelu.getKeskustelunotsikko().isEmpty()) {
+            model.addAttribute("virhe", "Täytäthän kaikki pakolliset tiedot");
+            return lisaaUusiKeskustelu(aiheenNimi, model, viesti, keskustelu);
         } else {
-            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
-            String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
-            return lisaaUusiKeskustelu(aiheenNimi, model);
+            if (viesti.getTeksti().length() < 2000) {
+                keskusteluRepo.save(keskustelu);
+                int id = keskustelu.getId();
+
+                viesti = null;
+                return naytaYksiKeskustelu(aiheenNimi, id, model, viesti); // pysyy keskustelun sivulla mihin lisäsi viestin
+            } else {
+                model.addAttribute("virhe", "Viestin maksimipituus on 2000 merkkiä");
+                return lisaaUusiKeskustelu(aiheenNimi, model, viesti, keskustelu);
+            }
         }
-
-        String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
-        int id = keskustelu.getId();
-
-        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
+        //return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
-    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
+    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model, Viesti viesti) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
         if (keskustelut.isEmpty()) {
             return "eiHakutuloksia";
@@ -114,7 +134,12 @@ public class Kontrolleri {
         model.addAttribute("listaaviestit", listaaViestit);
 
         Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
+
         Viesti uusiViesti = new Viesti();
+        if (viesti != null) { // jos palataan virheilmoituksen kautta
+            uusiViesti = viesti;
+        }
+
         uusiViesti.setKeskusteluJohonViestiKuuluu(optkesk.get());
         model.addAttribute("lomake", uusiViesti);
 
@@ -131,13 +156,15 @@ public class Kontrolleri {
         int id = viesti.getKeskusteluJohonViestiKuuluu().getId();
 
         // tarkistetaan onko viestin kentät tyhjiä
-        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("")) {
-            Viesti talletettuViesti = viestiRepo.save(viesti);
-        } else {
+        if (viesti.getKirjoittaja().equals("") || viesti.getTeksti().equals("")) {
             model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
+            return naytaYksiKeskustelu(aiheenNimi, id, model, viesti);
+        } else {
+            Viesti talletettuViesti = viestiRepo.save(viesti);
+            viesti = null;
+            return naytaYksiKeskustelu(aiheenNimi, id, model, viesti); // pysyy keskustelun sivulla mihin lisäsi viestin
         }
 
-        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/haku")
@@ -174,6 +201,7 @@ class Hakusana {
     public String getSana() {
         return sana;
     }
+
     public void setSana(String sana) {
         this.sana = sana;
     }
