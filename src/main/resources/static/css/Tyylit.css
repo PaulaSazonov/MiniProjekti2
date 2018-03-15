@@ -33,3 +33,12 @@ body {
 .p-inline {
     display: inline;
 }
+
+.p-padding {
+    padding: 10px;
+}
+
+.kommentti-divi {
+    padding-top: 10px;
+    border: 1px solid rgba(100, 100, 100, 0.9);
+}
