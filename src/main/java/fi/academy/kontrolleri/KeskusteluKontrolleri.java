@@ -63,11 +63,17 @@ public class KeskusteluKontrolleri {
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
         model.addAttribute("keskustelut", keskustelut);
         model.addAttribute("listaaviestit", listaaViestit);
+
+        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
+        Viesti uusiViesti = new Viesti();
+        uusiViesti.setKeskusteluJohonViestiKuuluu(optkesk.get());
+        model.addAttribute("lomake", uusiViesti);
+
         return "keskustelut";
     }
 
-    // pitäis kattoo, sillä nämä kaks pitäisi yhdistää
 
+    // Ei pitäisi tarvita enää, jätetty varan vuoksi
 //    @GetMapping("/foorumi/{aiheenNimi}/{id}")
 //    public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
 //        Optional<Keskustelu> optkesk = keskusteluRepo.findById(id);
