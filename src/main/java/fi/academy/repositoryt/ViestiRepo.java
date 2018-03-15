@@ -7,7 +7,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface ViestiRepo extends CrudRepository<Viesti, Integer> {
+    List<Viesti> findViestiByTekstiContaining(String hakusana);
 
     @Query("SELECT v FROM Viesti v where v.keskusteluJohonViestiKuuluu.id= :id")
     List<Viesti> listaaViestit (@Param("id") Integer id);
