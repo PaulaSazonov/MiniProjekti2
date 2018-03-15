@@ -44,7 +44,7 @@ public class ViestiKontrolleri {
     public String haekeskusteluista(Hakusana sana, Model model) {
         System.out.println(sana.getSana());
         if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
-            return "redirect:/";
+            return "eiHakutuloksia";
         List<Viesti> haetut = viestiRepo.etsi(sana.getSana());
         if(haetut.isEmpty()){
             return "eiHakutuloksia";
