@@ -36,6 +36,7 @@ public class ViestiKontrolleri {
         if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
             return "redirect:/";
         List<Viesti> haetut = viestiRepo.findViestiByTekstiContaining(sana.getSana());
+        //List<Viesti> haetut = viestiRepo.findViestiByKeskusteluJohonViestiKuuluuContainingAndTekstiContaining(sana.getSana());
         if(haetut.isEmpty()){
             return "eiHakutuloksia";
         }
