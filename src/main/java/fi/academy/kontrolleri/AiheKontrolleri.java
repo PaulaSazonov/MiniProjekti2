@@ -63,6 +63,7 @@ public class AiheKontrolleri {
 
         Viesti uusiAloitusviesti = new Viesti();
         uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
+
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
         model.addAttribute("lomake", uusiKeskustelu);
@@ -71,16 +72,25 @@ public class AiheKontrolleri {
     }
 
     @PostMapping("/uusikeskustelu")
-    @Transactional
-    public String uudenKeskustelunKasittelija(Keskustelu keskustelu) {
+    //@Transactional
+    public String uudenKeskustelunKasittelija(Keskustelu keskustelu, Model model) {
+
+        keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
         keskusteluRepo.save(keskustelu);
-        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+
+        String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
+        int id = keskustelu.getId();
+
+        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
+        String keskustelunotsikko = listaaViestit.get(0).getKeskusteluJohonViestiKuuluu().getKeskustelunotsikko();
+        model.addAttribute("otsikko", keskustelunotsikko);
+        System.out.println("**********************" + keskustelunotsikko);
         model.addAttribute("keskustelut", keskustelut);
         model.addAttribute("listaaviestit", listaaViestit);
 
@@ -95,10 +105,15 @@ public class AiheKontrolleri {
     @PostMapping("/uusiviesti")
     //@Transactional
     public String uudenViestinKasittelija(Viesti viesti, Model model) {
-         viesti = viestiRepo.save(viesti);
+        Viesti talletettuViesti = viestiRepo.save(viesti);
+        // Keskustelu keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu());
 
-        //return naytaYksiKeskustelu(viesti.getKeskusteluJohonViestiKuuluu().getAihealueJohonKuuluu().getAiheenNimi(),viesti.getKeskusteluJohonViestiKuuluu().getId(),model);
-        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+        String aiheenNimi;
+        Optional<Keskustelu> keskustelu = keskusteluRepo.findById(viesti.getKeskusteluJohonViestiKuuluu().getId());
+        aiheenNimi = keskustelu.get().getAihealueJohonKuuluu().getAiheenNimi();
+        int id = viesti.getKeskusteluJohonViestiKuuluu().getId();
+
+        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 }
 

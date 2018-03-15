@@ -1,7 +1,9 @@
 
 package fi.academy.kontrolleri;
 
+import fi.academy.entityt.Aihe;
 import fi.academy.entityt.Viesti;
+import fi.academy.repositoryt.AiheRepo;
 import fi.academy.repositoryt.ViestiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,17 @@ import java.util.List;
 public class ViestiKontrolleri {
 
     private ViestiRepo viestiRepo;
+    private AiheRepo aiheRepo;
 
-    public ViestiKontrolleri(@Autowired ViestiRepo viestiRepo) {
+    public ViestiKontrolleri(@Autowired ViestiRepo viestiRepo, @Autowired AiheRepo aiheRepo) {
         this.viestiRepo = viestiRepo;
+        this.aiheRepo = aiheRepo;
+    }
+
+    @ModelAttribute
+    public void annaKaikille(Model model) {
+        Iterable<Aihe> aiheet = aiheRepo.findAll();
+        model.addAttribute("aiheet", aiheet);
     }
 
     @GetMapping("/foorumi/haku")
