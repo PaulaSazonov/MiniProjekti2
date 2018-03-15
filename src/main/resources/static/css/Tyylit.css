@@ -38,6 +38,10 @@ body {
     padding: 10px;
 }
 
+.p-padding-haku-vasen {
+    padding-left: 10px;
+}
+
 .kommentti-divi {
     padding-top: 10px;
     border: 1px solid rgba(100, 100, 100, 0.9);
