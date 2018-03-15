@@ -73,12 +73,15 @@ public class AiheKontrolleri {
 
     @PostMapping("/uusikeskustelu")
     //@Transactional
-    public String uudenKeskustelunKasittelija(Keskustelu keskustelu) {
+    public String uudenKeskustelunKasittelija(Keskustelu keskustelu, Model model) {
 
         keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
-
         keskusteluRepo.save(keskustelu);
-        return "redirect:foorumi"; // halutaan lopulta, että että palaa samaan keskusteluun - nyt ei toimi!
+
+        String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
+        int id = keskustelu.getId();
+
+        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
