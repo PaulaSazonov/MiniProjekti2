@@ -69,6 +69,7 @@ public class AiheKontrolleri {
 
         uusiKeskustelu.setAloitusviesti(uusiAloitusviesti);
 
+        model.addAttribute("aihe", aiheenNimi);
         model.addAttribute("lomake", uusiKeskustelu);
 
         return "uusikeskustelu";

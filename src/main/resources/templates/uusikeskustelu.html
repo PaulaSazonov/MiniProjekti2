@@ -11,9 +11,9 @@
 <!--Tässä tehtäisiin uusi keskustelu-->
 
 <div class="container">
-    <h1>Ryhmä 3 foorumi</h1>
+    <h1 th:text="${aihe}"></h1>
     <div>
-        <p>Alla voit luoda uuden keskustelun!</p>
+        <p>Aloita uusi keskustelu: </p>
     </div>
 </div>
 
@@ -31,13 +31,13 @@
                 <input class="form-control" th:field="*{aloitusviesti.kirjoittaja}"/></div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" th:text="'Viestiketjun otsikko:'" th:for="otsikko"/>
+            <label class="control-label col-sm-2" th:text="'Otsikko:'" th:for="otsikko"/>
             <div class="col-sm-10">
                 <input class="form-control" th:field="*{keskustelunotsikko}"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" th:text="'Viestisi:'" th:for="teksti"/>
+            <label class="control-label col-sm-2" th:text="'Viesti:'" th:for="teksti"/>
             <div class="col-sm-10">
                 <textarea class="form-control" th:field="*{aloitusviesti.teksti}"/>
             </div>
