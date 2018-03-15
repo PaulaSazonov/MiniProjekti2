@@ -83,15 +83,15 @@ public class AiheKontrolleri {
 
         // palautus URLiin liittyvät kommentit
         String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
-        int id = keskustelu.getId();
-
         // TARKISTATAAN ONKO VIESTIN KENTÄT TYHJÄT
         Viesti viesti = keskustelu.getAloitusviesti();
 
         // TAKISTA KAIKKI KENTÄT
         if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("") || !keskustelu.getKeskustelunotsikko().equals("")) {
+
             if (viesti.getTeksti().length() < 2000) {
                 keskusteluRepo.save(keskustelu);
+                int id = keskustelu.getId();
                 return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
             } else {
                 model.addAttribute("virhe", "Viestin maksimipituus on 2000 merkkiä");
@@ -101,8 +101,7 @@ public class AiheKontrolleri {
             model.addAttribute("virhe", "Täytäthän kaikki pakolliset tiedot");
             return lisaaUusiKeskustelu(aiheenNimi, model);
         }
-
-        // return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
+        //return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
