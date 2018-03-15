@@ -11,6 +11,8 @@ public class Viesti {
     private int id;
     private LocalDateTime aikaleima;
     private String kirjoittaja;
+    @Column
+    @Lob
     private String teksti;
     @ManyToOne
     @JoinColumn
@@ -73,11 +75,11 @@ public class Viesti {
         this.keskusteluJohonViestiKuuluu = keskusteluJohonViestiKuuluu;
     }
 
-    public int getKeskustelunId(){
+    public int getKeskustelunId() {
         return this.keskusteluJohonViestiKuuluu.getId();
     }
 
-    public Aihe getViestinAihe (){
+    public Aihe getViestinAihe() {
         return this.keskusteluJohonViestiKuuluu.getAihealueJohonKuuluu();
     }
 
@@ -86,7 +88,7 @@ public class Viesti {
         return kirjoittaja + ", " + aikaleima + "\n" + teksti;
     }
 
-    public String getKeskustelu (){
+    public String getKeskustelu() {
         return this.keskusteluJohonViestiKuuluu.getKeskustelunotsikko();
     }
 }

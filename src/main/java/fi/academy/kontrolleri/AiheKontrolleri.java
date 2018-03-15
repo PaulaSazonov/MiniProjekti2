@@ -48,7 +48,7 @@ public class AiheKontrolleri {
     @GetMapping("/foorumi/{aiheenNimi}")
     public String naytaAiheenKeskustelut(@PathVariable String aiheenNimi, Model model) {
         List<Keskustelu> keskustelulista = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        if (keskustelulista.isEmpty()){
+        if (keskustelulista.isEmpty()) {
             return "eiHakutuloksia";
         }
         model.addAttribute("aiheenNimi", aiheenNimi);
@@ -80,30 +80,38 @@ public class AiheKontrolleri {
 
         keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
 
-        // TARKISTATAAN ONKO VIESTIN KENTÄT TYHJÄT
-        Viesti viesti = keskustelu.getAloitusviesti();
-        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("") || !keskustelu.getKeskustelunotsikko().equals("")) {
-            keskusteluRepo.save(keskustelu);
-        } else {
-            model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
-            String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
-            return lisaaUusiKeskustelu(aiheenNimi, model);
-        }
-
+        // palautus URLiin liittyvät kommentit
         String aiheenNimi = keskustelu.getAihealueJohonKuuluu().getAiheenNimi();
         int id = keskustelu.getId();
 
-        return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
+        // TARKISTATAAN ONKO VIESTIN KENTÄT TYHJÄT
+        Viesti viesti = keskustelu.getAloitusviesti();
+
+        // TAKISTA KAIKKI KENTÄT
+        if (!viesti.getKirjoittaja().equals("") || !viesti.getTeksti().equals("") || !keskustelu.getKeskustelunotsikko().equals("")) {
+            if (viesti.getTeksti().length() < 2000) {
+                keskusteluRepo.save(keskustelu);
+                return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
+            } else {
+                model.addAttribute("virhe", "Viestin maksimipituus on 2000 merkkiä");
+                return lisaaUusiKeskustelu(aiheenNimi, model);
+            }
+        } else {
+            model.addAttribute("virhe", "Täytäthän kaikki pakolliset tiedot");
+            return lisaaUusiKeskustelu(aiheenNimi, model);
+        }
+
+        // return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
     public String naytaYksiKeskustelu(@PathVariable("aiheenNimi") String aiheenNimi, @PathVariable("id") int id, Model model) {
         List<Keskustelu> keskustelut = keskusteluRepo.haeKeskustelutAiheella(aiheenNimi);
-        if (keskustelut.isEmpty()){
+        if (keskustelut.isEmpty()) {
             return "eiHakutuloksia";
         }
         List<Viesti> listaaViestit = viestiRepo.listaaViestit(id);
-        if (listaaViestit.isEmpty()){
+        if (listaaViestit.isEmpty()) {
             return "eiHakutuloksia";
         }
         String keskustelunotsikko = listaaViestit.get(0).getKeskusteluJohonViestiKuuluu().getKeskustelunotsikko();
