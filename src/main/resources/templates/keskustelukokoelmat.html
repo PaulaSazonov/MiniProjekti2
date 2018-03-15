@@ -24,13 +24,17 @@
             <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
             <!--<h3> <a th:href="@{/foorumi/} + ${aiheenNimi} + '/' + ${keskustelu.id}">ID</a></h3>-->
         </div>
-
-    </div>
-
-    <div>
-        <a th:href="'' + ${aiheenNimi} + '/uusikeskustelu'"> Kirjoita uusi keskustelu</a>
-    </div>
- <!--   <div>
+        <br>
+        <br>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <form th:action="'' + ${aiheenNimi} + '/uusikeskustelu'">
+                    <input class="btn btn-default" type="submit" th:value="'Aloita uusi keskustelu'"/>
+                </form>
+            </div>
+        </div>
+ <!--
+ <a th:href="'' + ${aiheenNimi} + '/uusikeskustelu'"> Kirjoita uusi keskustelu</a><div>
         <div th:each="keskustelu: ${keskustelulista}">
             <h3> <a th:href="'/foorumi/' + ${aiheenNimi} + '/' + ${keskustelu.id}" th:text="${keskustelu.keskustelunotsikko}"/></h3>
         </div>
