@@ -16,7 +16,7 @@
         <form class="form-horizontal" th:action="@{/foorumi/hakutulos}" th:object="${hakusana}" th:method="POST">
             <div class="form-group">
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{sana}"/>
+                    <input class="form-control" type="text" oninvalid="this.setCustomValidity('Hakusana ei voi olla tyhjä!')" required th:field="*{sana}"/>
                 </div>
             </div>
             <div class="form-group">

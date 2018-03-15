@@ -24,7 +24,48 @@
     </div>
 </div>
 
+<div class="container">
+    <h3>Äänestä parasta eläintä!</h3>
+    <br>
+    <h3 id="results">
+        vastauksia: 0
+        Kissat: 0
+        Koirat: 0
+        Muut: 0
+    </h3>
+    <button class="btn btn-default" type="button" id="kissat-button">Paina kissojen puolesta</button>
+    <button class="btn btn-default" type="button" id="koirat-button">Paina koirien puolesta</button>
+    <button class="btn btn-default" type="button" id="muut-button">Joku muu eläin</button>
+</div>
+
 <!--Tähän omat koodit-->
 
+<script>
+    var kissat = 0;
+    var koirat = 0;
+    var muut = 0;
+
+    function refreshResults () {
+        var results = document.getElementById('results');
+        results.innerHTML = 'vastauksia: ' + (kissat + koirat + muut);
+        results.innerHTML += '<br />kissat: ' + kissat;
+        results.innerHTML += '<br />koirat: ' + koirat;
+        results.innerHTML += '<br />muut: ' + muut;
+    }
+
+    document.getElementById('kissat-button').addEventListener('click', function () {
+        kissat++;
+        refreshResults();
+    });
+
+    document.getElementById('koirat-button').addEventListener('click', function () {
+        koirat++;
+        refreshResults();
+    });
+    document.getElementById('muut-button').addEventListener('click', function () {
+        muut++;
+        refreshResults();
+    });
+</script>
 </body>
 </html>
