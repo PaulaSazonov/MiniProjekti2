@@ -38,7 +38,7 @@ public class MiniProjekti2Application {
 
             keskustelu.setAloitusviesti(new Viesti("KissojenKaveri", "Kuinka usein harjaatte pitkäkarvaisten kissojenne turkkeja ja millaisia harjoja teillä on ollut käytössä?", keskustelu));
             Viesti viesti1 = new Viesti("PersialaisetRules", "Meillä on ollut käytössä Furminator-harja, voin suositella. Pyrimme harjaamaan turkkia ainakin kerran kuussa, keväällä karvanlähtöaikaan useammin", keskustelu);
-            Viesti viesti2 = new Viesti("Toinen", "Toinen vastaus", keskustelu);
+            Viesti viesti2 = new Viesti("CrazyCatLady", "Päivittäinhän sitä olisi hyvä harjata, varsinkin jos näyttely-yksilöstä on kyse.", keskustelu);
             keskustelu.lisaaViestiListaan(viesti1);
             keskustelu.lisaaViestiListaan(viesti2);
             keskusteluRepo.save(keskustelu); // Koska CASCADE käytössä, ei tarvitse tallentaa viestejä ja keskusteluita erikseen repoon, vaan menevät aiheen tallennuksella
@@ -50,7 +50,7 @@ public class MiniProjekti2Application {
 
             keskustelu.setAloitusviesti(new Viesti("GrumpyCat", "Mikä on paras kissanvessa? Onko avoin vai katettu hyvä?",keskustelu));
             viesti1 = new Viesti("Siamilainen", "Katettu, ehdottomasti. Pysyy hiekat ja hajut paremmin kurissa.", keskustelu);
-            viesti2 = new Viesti("Toinen", "Toinen vastaus", keskustelu);
+            viesti2 = new Viesti("ILoveKitties", "Meillä on käytössä katettu Dome, ollut hyvä. Tärkeintä kai että putsaa päivittäin, kuin että millainen se juuri on.", keskustelu);
             keskustelu.lisaaViestiListaan(viesti1);
             keskustelu.lisaaViestiListaan(viesti2);
             keskusteluRepo.save(keskustelu);
