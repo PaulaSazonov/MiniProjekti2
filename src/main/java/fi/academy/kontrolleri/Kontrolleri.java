@@ -1,4 +1,3 @@
-
 package fi.academy.kontrolleri;
 
 import fi.academy.entityt.Aihe;
@@ -70,9 +69,9 @@ public class Kontrolleri {
 
         Keskustelu uusiKeskustelu = new Keskustelu();
         uusiKeskustelu.setAihealueJohonKuuluu(aihe.get());
-//        if (keskustelu != null) {// jos palataan virheilmoituksen kautta
-//            uusiKeskustelu = keskustelu;
-//        }
+        if (keskustelu != null) {// jos palataan virheilmoituksen kautta
+            uusiKeskustelu.setKeskustelunotsikko(keskustelu.getKeskustelunotsikko()); // = keskustelu;
+        }
 
         Viesti uusiAloitusviesti = new Viesti();
         uusiAloitusviesti.setKeskusteluJohonViestiKuuluu(uusiKeskustelu);
@@ -104,18 +103,26 @@ public class Kontrolleri {
             model.addAttribute("virhe", "Täytäthän kaikki pakolliset tiedot");
             return lisaaUusiKeskustelu(aiheenNimi, model, viesti, keskustelu);
         } else {
-            if (viesti.getTeksti().length() < 2000) {
+            if (viesti.getTeksti().length() < 2000 & viesti.getKirjoittaja().length() < 255 & keskustelu.getKeskustelunotsikko().length() < 255) {
                 keskusteluRepo.save(keskustelu);
                 int id = keskustelu.getId();
 
                 viesti = null;
                 return naytaYksiKeskustelu(aiheenNimi, id, model, viesti); // pysyy keskustelun sivulla mihin lisäsi viestin
             } else {
-                model.addAttribute("virhe", "Viestin maksimipituus on 2000 merkkiä");
+
+                String virheilmoitus = "";
+                if (viesti.getTeksti().length() > 2000)
+                    virheilmoitus += "Viestin maksimipituus on 2000 merkkiä.\n ";
+                if (viesti.getKirjoittaja().length() > 255)
+                    virheilmoitus += "Nimen maksimipituus on 255 merkkiä. ";
+                if (keskustelu.getKeskustelunotsikko().length() > 255)
+                    virheilmoitus += "Otsikon maksimipituus on 255 merkkiä.";
+                model.addAttribute("virhe", virheilmoitus);
+
                 return lisaaUusiKeskustelu(aiheenNimi, model, viesti, keskustelu);
             }
         }
-        //return naytaYksiKeskustelu(aiheenNimi, id, model); // pysyy keskustelun sivulla mihin lisäsi viestin
     }
 
     @GetMapping("/foorumi/{aiheenNimi}/{id}")
@@ -160,11 +167,21 @@ public class Kontrolleri {
             model.addAttribute("virhe", "Täytäthän kaikki tarvittavat tiedot!");
             return naytaYksiKeskustelu(aiheenNimi, id, model, viesti);
         } else {
-            Viesti talletettuViesti = viestiRepo.save(viesti);
-            viesti = null;
-            return naytaYksiKeskustelu(aiheenNimi, id, model, viesti); // pysyy keskustelun sivulla mihin lisäsi viestin
-        }
+            if (viesti.getTeksti().length() < 2000 & viesti.getKirjoittaja().length() < 255) {
+                Viesti talletettuViesti = viestiRepo.save(viesti);
+                viesti = null;
+                return naytaYksiKeskustelu(aiheenNimi, id, model, viesti); // pysyy keskustelun sivulla mihin lisäsi viestin
+            } else {
+                String virheilmoitus = "";
+                if (viesti.getTeksti().length() > 2000)
+                    virheilmoitus += "Viestin maksimipituus on 2000 merkkiä.\n ";
+                if (viesti.getKirjoittaja().length() > 255)
+                    virheilmoitus += "Nimen maksimipituus on 255 merkkiä. ";
+                model.addAttribute("virhe", virheilmoitus);
 
+                return naytaYksiKeskustelu(aiheenNimi, id, model, viesti);
+            }
+        }
     }
 
     @GetMapping("/foorumi/haku")
@@ -177,7 +194,6 @@ public class Kontrolleri {
 
     @PostMapping("/foorumi/hakutulos")
     public String haekeskusteluista(fi.academy.kontrolleri.Hakusana sana, Model model) {
-        System.out.println(sana.getSana());
         if (sana == null || sana.getSana() == null || sana.getSana().trim().isEmpty())
             return "eiHakutuloksia";
         List<Viesti> haetut = viestiRepo.etsi(sana.getSana());
@@ -207,6 +223,3 @@ class Hakusana {
         this.sana = sana;
     }
 }
-
-
-
