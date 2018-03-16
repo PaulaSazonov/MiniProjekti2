@@ -18,6 +18,4 @@ public interface ViestiRepo extends CrudRepository<Viesti, Integer> {
     @Query("SELECT v FROM Viesti v where v.keskusteluJohonViestiKuuluu.keskustelunotsikko like concat ('%', :hakusana, '%') or v.teksti like concat('%', :hakusana, '%')")
     List<Viesti> etsi(@Param("hakusana") String sana);
 
-//    @Query("SELECT k FROM Keskustelu k WHERE k.aihealueJohonKuuluu LIKE CONCAT(:aiheenNimi, '%') ")
-//    List<Keskustelu> haeKeskustelutAiheella (@Param("aiheenNimi") String aiheenNimi);
 }

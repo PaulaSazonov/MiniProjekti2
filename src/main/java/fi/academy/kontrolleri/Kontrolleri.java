@@ -7,9 +7,7 @@ import fi.academy.repositoryt.AiheRepo;
 import fi.academy.repositoryt.KeskusteluRepo;
 import fi.academy.repositoryt.ViestiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -88,7 +86,6 @@ public class Kontrolleri {
     }
 
     @PostMapping("/uusikeskustelu")
-    //@Transactional
     public String uudenKeskustelunKasittelija(Keskustelu keskustelu, Model model) {
 
         keskustelu.getAloitusviesti().setKeskusteluJohonViestiKuuluu(keskustelu);
@@ -154,7 +151,6 @@ public class Kontrolleri {
     }
 
     @PostMapping("/uusiviesti")
-    //@Transactional
     public String uudenViestinKasittelija(Viesti viesti, Model model) {
 
         String aiheenNimi;

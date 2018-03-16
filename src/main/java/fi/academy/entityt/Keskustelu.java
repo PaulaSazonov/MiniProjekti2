@@ -23,9 +23,7 @@ public class Keskustelu {
     @JoinColumn
     private Viesti aloitusviesti;
     @OneToMany(mappedBy = "keskusteluJohonViestiKuuluu", cascade = CascadeType.ALL)
-    // fetch = FetchType.EAGER) > määritetään metodeissa, että ei tule turhia hakuja
     private List<Viesti> kommentit;
-
 
     public Keskustelu() {
     }
@@ -34,19 +32,7 @@ public class Keskustelu {
         this.aihealueJohonKuuluu = aihealueJohonKuuluu;
         this.keskustelunotsikko = keskustelunotsikko;
         this.kommentit = new ArrayList<>();
-//        this.kommentit.add(aloitusviesti);
-
     }
-
-
-//    public Keskustelu(Aihe aihealueJohonKuuluu, String keskustelunotsikko, Viesti aloitusviesti) {
-//        this.aihealueJohonKuuluu = aihealueJohonKuuluu;
-//        this.keskustelunotsikko = keskustelunotsikko;
-//        this.aloitusviesti = aloitusviesti;
-//        this.kommentit = new ArrayList<>();
-////        this.kommentit.add(aloitusviesti);
-//
-//    }
 
     public void lisaaViestiListaan(Viesti viesti) {
         kommentit.add(viesti);
@@ -102,6 +88,4 @@ public class Keskustelu {
         String aika = aikaleima.format(formatter);
         return aika;
     }
-
-
 }
